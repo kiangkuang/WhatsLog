@@ -142,18 +142,35 @@ img.emoji {
 }
 
 .navbar{
-	display:flex;
-	height:100px;
-	top:0;
-	left:0;
-	height:50px;
-	justify-content: center;
-	align-items: center;
-	width:100%;
+	display:none;
+	top:43px;
+	right:0;
+	text-align:center;
+	margin:10px;
+	padding:10px;
+	width:200px;
 	position:fixed;
 	background-color:rgba(238, 238, 238, 1);
 	
 	z-index:1;
+}
+.header{
+	display:flex;
+	padding:10px;
+	top:0;
+	left:0;
+	width:100%;
+	position:fixed;
+	background-color:rgba(255, 255, 255, 1);
+	z-index:1;
+}
+
+.expand{
+	max-width:40px;
+	max-height:40px;
+	position:fixed;
+	right:0;
+	top:0;
 }
 
 .myButton {
@@ -181,8 +198,9 @@ img.emoji {
 	padding:7px 24px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
-	margin-left:5px;
-	margin-right:5px;
+	margin-top:5px;
+	margin-bottom:5px;
+    width: 100%;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
