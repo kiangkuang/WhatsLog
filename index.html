@@ -1,0 +1,317 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Please keep this btwn us</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.1"></script>
+</head>
+<body>
+	<div id="pov" class="navbar"></div>
+    <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" >
+        <div class="chat_box touchscroll chat_box_colors_a">
+    <!--
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum? </p>
+                </li>
+                <li>
+                    <p> Lorem ipsum dolor sit amet.<span class="chat_message_time">13:38</span> </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem delectus distinctio dolor earum est hic id impedit ipsum minima mollitia natus nulla perspiciatis quae quasi, quis recusandae, saepe, sunt totam.
+                        <span class="chat_message_time">13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ea mollitia pariatur porro quae sed sequi sint tenetur ut veritatis.https://www.facebook.com/iamgurdeeposahan
+                        <span class="chat_message_time">23 Jun 1:10am</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur. </p>
+                </li>
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        <span class="chat_message_time">Friday 13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum? </p>
+                </li>
+                <li>
+                    <p> Lorem ipsum dolor sit amet.<span class="chat_message_time">13:38</span> </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem delectus distinctio dolor earum est hic id impedit ipsum minima mollitia natus nulla perspiciatis quae quasi, quis recusandae, saepe, sunt totam.
+                        <span class="chat_message_time">13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ea mollitia pariatur porro quae sed sequi sint tenetur ut veritatis.https://www.facebook.com/iamgurdeeposahan
+                        <span class="chat_message_time">23 Jun 1:10am</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur. </p>
+                </li>
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        <span class="chat_message_time">Friday 13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, eum? </p>
+                </li>
+                <li>
+                    <p> Lorem ipsum dolor sit amet.<span class="chat_message_time">13:38</span> </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem delectus distinctio dolor earum est hic id impedit ipsum minima mollitia natus nulla perspiciatis quae quasi, quis recusandae, saepe, sunt totam.
+                        <span class="chat_message_time">13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper">
+            <ul class="chat_message">
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque ea mollitia pariatur porro quae sed sequi sint tenetur ut veritatis.https://www.facebook.com/iamgurdeeposahan
+                        <span class="chat_message_time">23 Jun 1:10am</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chat_message_wrapper chat_message_right">
+            <ul class="chat_message">
+                <li>
+                    <p> Lorem ipsum dolor sit amet, consectetur. </p>
+                </li>
+                <li>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        <span class="chat_message_time">Friday 13:34</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    -->
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
+function LoadFile() {
+    var oFrame = document.getElementById("frmFile");
+    var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+    var arrLines = strRawContents.split("\n");
+
+	var names = [];
+    for (var i = 0; i < arrLines.length; i++) {
+        var curLine = arrLines[i];
+
+        split = curLine.split(/( - )|(: )/, 7);
+        if (split.length == 7) {
+            var timestamp = split[0];
+            var from = split[3];
+            var message = split[6];
+            var className = from.replace(/ /g,'');
+            if(names.indexOf(className)== -1){
+                names.push(className);
+                var povDiv = document.getElementById("pov");
+                povDiv.innerHTML += "<button class=\"myButton\" onclick='changeCss(\""+className+"\",this)'>"+from+"</button>";
+            }
+
+            if (timestamp && from && message && message.indexOf(".jpg (file attached)") != -1) {
+                addImage(timestamp, from, message.split(" (file attached)"));
+            } else if (timestamp && from && message && message.indexOf(".mp4 (file attached)") != -1) {
+                addVideo(timestamp, from, message.split(" (file attached)"));
+            } else if (timestamp && from && message) {            
+                addMsg(timestamp, from, message);
+            }
+        } else if (split.length == 4 && split[1] == " - " && !split[2]) {
+            addAdmin(split[3]);
+        } else {
+            var timestamp = $('#chat > div > div:last-child() > ul > li > p:nth-child(2) > span').remove();
+            $('#chat > div > div:last-child() > ul > li > p:nth-child(2)').append("<br>" + curLine).append(timestamp);
+        }
+    }
+}
+
+function addImage(timestamp, from, filename) {
+    $(".chat_box").append(`
+        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
+            <ul class="chat_message">
+                <li>
+                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
+                        <b>` + from + `</b>
+                    </p>
+                    <p>
+                        <img src="log/` + filename[0] + `">
+                        <span class="chat_message_time">` + timestamp + `</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        `);
+}
+
+function addVideo(timestamp, from, filename) {
+    $(".chat_box").append(`
+        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
+            <ul class="chat_message">
+                <li>
+                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
+                        <b>` + from + `</b>
+                    </p>
+                    <p>
+                        <video controls>
+                            <source src="log/` + filename[0] + `" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <span class="chat_message_time">` + timestamp + `</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        `);
+}
+
+function addAdmin(message){
+    $(".chat_box").append(`
+        <div class="admin_message_wrapper">
+            ` + message + `
+        </div>
+        `);
+}
+
+function addMsg(timestamp, from, message) {
+    message = twemoji.parse(message.linkify());
+    $(".chat_box").append(`
+        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
+            <ul class="chat_message">
+                <li>
+                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
+                        <b>` + from + `</b>
+                    </p>
+                    <p>
+                        ` + message + `
+                        <span class="chat_message_time">` + timestamp + `</span>
+                    </p>
+                </li>
+            </ul>
+        </div>
+        `);
+}
+
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+} 
+
+function intToRGB(i){
+    var c = (i & 0x00FFFFFF)
+    .toString(16)
+    .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+}
+
+var prevClassName ="";
+function changeCss(selClassName,btn){
+	var allOld = document.getElementsByClassName("chat_message_wrapper");
+	var buttons = document.getElementsByClassName("myButton");
+	for(i=0;i<buttons.length; i++){
+		buttons[i].classList.remove("active");
+	}
+	for(i=0; i<allOld.length; i++){
+		allOld[i].classList.remove("chat_message_right");
+	}
+	if(selClassName ==prevClassName){
+		prevClassName = "";
+		btn.classList.remove("active");
+	}
+	else{
+		var newPov = document.getElementsByClassName(selClassName);
+		for(i=0; i<newPov.length; i++){
+			newPov[i].className +="chat_message_wrapper "+selClassName+"  chat_message_right";
+		}
+		btn.classList.add("active");
+		prevClassName=selClassName;
+	}
+}
+
+if(!String.linkify) {
+    String.prototype.linkify = function() {
+
+        // http://, https://, ftp://
+        var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
+
+        // www. sans http:// or https://
+        var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+
+        // Email addresses
+        var emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
+
+        return this
+            .replace(urlPattern, '<a href="$&">$&</a>')
+            .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
+            .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
+    };
+}
+</script>
+
+<iframe src="log/chatlog.txt" id="frmFile" onload="LoadFile();" style="display: none;"></iframe>
+
+</body>
+</html>
