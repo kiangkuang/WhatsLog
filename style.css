@@ -6,7 +6,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 .chat_box .chat_message_wrapper ul.chat_message > li + li {
-    margin-top: 4px;
+    margin-top: 2px;
 }
 a:focus {
     outline: none;
@@ -54,18 +54,6 @@ a:focus {
 .chat_box.chat_box_colors_a .chat_message_wrapper ul.chat_message > li {
     background: #FCFBF6 none repeat scroll 0 0;
     color: #000000;
-}
-.chat_box .chat_message_wrapper ul.chat_message > li {
-    background: #ededed none repeat scroll 0 0;
-    border-radius: 4px;
-    clear: both;
-    color: #212121;
-    display: block;
-    float: left;
-    font-size: 13px;
-    padding: 8px 16px;
-    position: relative;
-    word-break: break-all;
 }
 .chat_box .chat_message_wrapper ul.chat_message, .chat_box .chat_message_wrapper ul.chat_message > li {
     list-style: outside none none;
@@ -124,7 +112,7 @@ a:focus {
 }
 .chat_box .chat_message_wrapper ul.chat_message > li {
     background: #ededed none repeat scroll 0 0;
-    border-radius: 12px;
+    border-radius: 6px;
     clear: both;
     color: #212121;
     display: block;
@@ -151,7 +139,7 @@ img.emoji {
 	width:200px;
 	position:fixed;
 	background-color:rgba(238, 238, 238, 1);
-	
+	border-radius: 6px;
 	z-index:1;
 }
 .header{
@@ -236,7 +224,7 @@ img.emoji {
     margin-left:auto;
     margin-right:auto;
     margin-bottom:16px;
-    border-radius: 7px;
+    border-radius: 6px;
 }
 
 *:focus {

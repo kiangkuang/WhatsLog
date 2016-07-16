@@ -26,6 +26,9 @@ function LoadFile() {
     var arrLines = strRawContents.split("\n");
 
 	var names = [];
+
+    var prevFrom;
+    var prevTimestamp;
     for (var i = 0; i < arrLines.length; i++) {
         var curLine = arrLines[i];
 
@@ -45,13 +48,20 @@ function LoadFile() {
                 addImage(timestamp, from, message.split(" (file attached)"));
             } else if (timestamp && from && message && message.indexOf(".mp4 (file attached)") != -1) {
                 addVideo(timestamp, from, message.split(" (file attached)"));
-            } else if (timestamp && from && message) {            
-                addMsg(timestamp, from, message);
+            } else if (timestamp && from && message) {
+                if (from == prevFrom && timestamp == prevTimestamp) {
+                    addContinuedMsg(message);
+                } else {
+                    addMsg(timestamp, from, message);
+                }
             }
+
+            prevFrom = from;
+            prevTimestamp = timestamp;
         } else if (split.length == 4 && split[1] == " - " && !split[2]) {
             addAdmin(split[3]);
         } else {
-            var timestamp = $('#chat > div > div:last-child() > ul > li > p:nth-child(2) > span').remove();
+            var timestamp = $('#chat > div > div:last-child() > ul > li > p:last-child() > span').remove();
             $('#chat > div > div:last-child() > ul > li > p:nth-child(2)').append("<br>" + curLine).append(timestamp);
         }
     }
@@ -135,6 +145,20 @@ function addMsg(timestamp, from, message) {
             </ul>
         </div>
         `);
+}
+
+function addContinuedMsg(message) {
+    var timestamp = $('#chat > div > div:last-child() > ul > li > p:last-child() > span').remove();
+    $("#chat > div > div:last-child() > ul").append(`
+                <li>
+                    <p>
+                    </p>
+                    <p>
+                        ` + message + `
+                    </p>
+                </li>
+        `);
+    $('#chat > div > div:last-child() > ul > li:last-child() > p:last-child()').append(timestamp);
 }
 
 function hashCode(str) {
