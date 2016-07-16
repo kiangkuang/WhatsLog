@@ -142,6 +142,7 @@ img.emoji {
 	border-radius: 6px;
 	z-index:1;
 }
+
 .header{
 	display:flex;
 	padding:15px;
@@ -160,6 +161,10 @@ img.emoji {
 	position:fixed;
 	right:6px;
 	top:6px;
+}
+
+#moreBtn2 {
+    display: none;
 }
 
 .myButton {

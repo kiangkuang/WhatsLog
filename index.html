@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="header"><a href="#">WhatsApp Chat Log Viewer</a>
-        <div onclick="showMore()"class="expand"><img id="moreBtn"  src="btn1.png"></div>
+        <div onclick="showMore()" class="expand"><img id="moreBtn1" src="btn1.png"><img id="moreBtn2" src="btn2.png"></div>
     </div>
 	<div id="pov" class="navbar">Select Perspective</div>
 	
@@ -96,15 +96,15 @@ function LoadFile() {
 
 var isShowing = false;
 function showMore(){
-	var btn = document.getElementById("moreBtn");
-	var nav = document.getElementById("pov");
 	if(isShowing){
-		btn.src="btn1.png";
-		nav.style.display="none";
+        $('#moreBtn2').hide();
+        $('#moreBtn1').show();
+        $('#pov').hide();
 	}
 	else{
-		btn.src="btn2.png";
-		nav.style.display="inline";
+        $('#moreBtn1').hide();
+		$('#moreBtn2').show();
+        $('#pov').show();
 	}
 	isShowing = !isShowing;
 }
