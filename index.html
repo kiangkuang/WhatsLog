@@ -9,7 +9,7 @@
     <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.1"></script>
 </head>
 <body>
-	<div class="header"><strong>WhatsApp Chat Log Viewer</strong>
+	<div class="header"><a href="#">WhatsApp Chat Log Viewer</a>
         <div onclick="showMore()"class="expand"><img id="moreBtn"  src="btn1.png"></div>
     </div>
 	<div id="pov" class="navbar">Select Perspective</div>
@@ -89,6 +89,7 @@ function LoadFile() {
 
     $('.loader').remove();
 }
+
 var isShowing = false;
 function showMore(){
 	var btn = document.getElementById("moreBtn");

@@ -236,6 +236,12 @@ img.emoji {
     display: none;
 }
 
+.header > a {
+    color: #555;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 img{
     max-width: 100%;
     height: auto;
