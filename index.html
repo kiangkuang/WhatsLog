@@ -28,7 +28,7 @@ function LoadFile() {
 	var names = [];
 
     var prevFrom;
-    var prevTimestamp;
+    var prevTimestamp = "";
     for (var i = 0; i < arrLines.length; i++) {
         var curLine = arrLines[i];
 
@@ -42,6 +42,10 @@ function LoadFile() {
                 names.push(className);
                 var povDiv = document.getElementById("pov");
                 povDiv.innerHTML += "<button class=\"myButton\" onclick='changeCss(\""+className+"\",this)'>"+from+"</button>";
+            }
+
+            if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
+                addAdmin(timestamp.split(', ')[0]);
             }
 
             if (timestamp && from && message && message.indexOf(".jpg (file attached)") != -1) {
