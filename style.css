@@ -169,8 +169,8 @@ img.emoji {
 	max-width:40px;
 	max-height:40px;
 	position:fixed;
-	right:0;
-	top:0;
+	right:2px;
+	top:2px;
 }
 
 .myButton {
