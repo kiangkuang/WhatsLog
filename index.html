@@ -38,6 +38,10 @@
 function LoadFile() {
     var oFrame = document.getElementById("frmFile");
     var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+    if (!strRawContents) {
+        $('.sk-cube-grid').remove();
+        $('.loader > p').text("Error loading file '" + $('#frmFile').attr('src') + "'");
+    }
     var arrLines = strRawContents.split("\n");
 
 	var names = [];
