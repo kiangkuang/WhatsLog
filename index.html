@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="header"><a href="#">WhatsApp Chat Log Viewer</a>
-        <div onclick="showMore()" class="expand"><img id="moreBtn1" src="btn1.png"><img id="moreBtn2" src="btn2.png"></div>
+        <a href="#" class="expand"><img id="moreBtn1" src="btn1.png" draggable="false"><img id="moreBtn2" src="btn2.png" draggable="false"></a>
     </div>
 	<div id="pov" class="navbar">Select Perspective</div>
 	
@@ -95,7 +95,8 @@ function LoadFile() {
 }
 
 var isShowing = false;
-function showMore(){
+$(".expand").click(function(event) {
+    event.preventDefault();
 	if(isShowing){
         $('#moreBtn2').hide();
         $('#moreBtn1').show();
@@ -107,7 +108,7 @@ function showMore(){
         $('#pov').show();
 	}
 	isShowing = !isShowing;
-}
+});
 
 function addImage(timestamp, from, filename) {
     $(".chat_box").append(`
