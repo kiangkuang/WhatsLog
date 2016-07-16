@@ -9,14 +9,29 @@
     <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.1"></script>
 </head>
 <body>
-	<div class="header"><strong>WhatsApp Chat Log Viewer</strong> <div onclick="showMore()"class="expand"><img id="moreBtn"  src="btn1.png"></div></div>
+	<div class="header"><strong>WhatsApp Chat Log Viewer</strong>
+        <div onclick="showMore()"class="expand"><img id="moreBtn"  src="btn1.png"></div>
+    </div>
 	<div id="pov" class="navbar">Select Perspective</div>
 	
-    <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" >
-        <div class="chat_box touchscroll chat_box_colors_a">
-        
+    <div class="loader">
+        <div class="sk-cube-grid">
+            <div class="sk-cube sk-cube1"></div>
+            <div class="sk-cube sk-cube2"></div>
+            <div class="sk-cube sk-cube3"></div>
+            <div class="sk-cube sk-cube4"></div>
+            <div class="sk-cube sk-cube5"></div>
+            <div class="sk-cube sk-cube6"></div>
+            <div class="sk-cube sk-cube7"></div>
+            <div class="sk-cube sk-cube8"></div>
+            <div class="sk-cube sk-cube9"></div>
+        </div>
+        <p>Loading</p>
     </div>
-</div>
+
+    <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" >
+        <div class="chat_box chat_box_colors_a"></div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript">
@@ -63,12 +78,16 @@ function LoadFile() {
             prevFrom = from;
             prevTimestamp = timestamp;
         } else if (split.length == 4 && split[1] == " - " && !split[2]) {
+            // admin message
             addAdmin(split[3]);
         } else {
+            // multi line
             var timestamp = $('#chat > div > div:last-child() > ul > li > p:last-child() > span').remove();
-            $('#chat > div > div:last-child() > ul > li > p:nth-child(2)').append("<br>" + curLine).append(timestamp);
+            $('#chat > div > div:last-child() > ul > li > p:last-child()').append("<br>" + curLine).append(timestamp);
         }
     }
+
+    $('.loader').remove();
 }
 var isShowing = false;
 function showMore(){
