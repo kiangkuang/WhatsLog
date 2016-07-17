@@ -84,6 +84,7 @@ function changePov() {
 }
 
 function addAdmin(timestamp, message) {
+    message = twemoji.parse(message.linkify());
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper">
             <ul class="admin-message">
@@ -112,6 +113,7 @@ function addMsg(timestamp, from, message) {
 }
 
 function addContinuedMsg(message) {
+    message = twemoji.parse(message.linkify());
     var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
     $(".bubble-wrapper:last-child > ul").append(`
                 <li>
