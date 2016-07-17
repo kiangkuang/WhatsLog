@@ -61,10 +61,10 @@ function LoadFile() {
 
     $('.loader').remove();
 
-    var prevClassName = "";
     changePov();
 }
 
+var prevClassName = "";
 function changePov() {
     $('.change-pov').click(function(event) {
         event.preventDefault();
