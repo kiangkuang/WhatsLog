@@ -1,256 +1,99 @@
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+  <head>
+    <title>WhatsLog</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style2.css">
 
-    <title>WhatsApp Chat Log Viewer</title>
-
-    <link rel="stylesheet" href="style.css">
     <script src="//twemoji.maxcdn.com/2/twemoji.min.js?2.1"></script>
-</head>
-<body>
-	<div class="header"><a href="#">WhatsApp Chat Log Viewer</a>
-        <a href="#" class="expand"><img id="moreBtn1" src="btn1.png" draggable="false"><img id="moreBtn2" src="btn2.png" draggable="false"></a>
-    </div>
-	<div id="pov" class="navbar">Select Perspective</div>
-	
-    <div class="loader">
-        <div class="sk-cube-grid">
-            <div class="sk-cube sk-cube1"></div>
-            <div class="sk-cube sk-cube2"></div>
-            <div class="sk-cube sk-cube3"></div>
-            <div class="sk-cube sk-cube4"></div>
-            <div class="sk-cube sk-cube5"></div>
-            <div class="sk-cube sk-cube6"></div>
-            <div class="sk-cube sk-cube7"></div>
-            <div class="sk-cube sk-cube8"></div>
-            <div class="sk-cube sk-cube9"></div>
-        </div>
-        <p>Loading</p>
-    </div>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+  </head>
 
-    <div id="chat" class="chat_box_wrapper chat_box_small chat_box_active" >
-        <div class="chat_box chat_box_colors_a"></div>
+  <body>
+    <div class="navbar-fixed">
+      <nav class="grey lighten-5">
+        <div class="container">
+          <div class="nav-wrapper">
+            <a href="#" class="brand-logo grey-text text-darken-2">WhatsLog</a>
+            <a href="#" data-activates="mobile-menu" class="button-collapse grey-text text-darken-2"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+              <li><a class='dropdown-button grey-text text-darken-2' href='#' data-activates='dropdown-menu' data-beloworigin='true' data-constrainwidth='false' data-alignment='right'><i class="material-icons">question_answer</i></a></li>
+            </ul>
+          </div>
+          <ul class="side-nav pov" id="mobile-menu">
+            <li><a href="#">Select Perspective</a></li>
+            <li class="divider"></li>
+          </ul>
+        </div>
+      </nav>
     </div>
 
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script type="text/javascript">
-function LoadFile() {
-    var oFrame = document.getElementById("frmFile");
-    var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
-    if (!strRawContents) {
-        $('.sk-cube-grid').remove();
-        $('.loader > p').text("Error loading file '" + $('#frmFile').attr('src') + "'");
-    }
-    var arrLines = strRawContents.split("\n");
+    <ul id="dropdown-menu" class="dropdown-content pov">
+      <li><a href="#">Select Perspective</a></li>
+      <li class="divider"></li>
+    </ul>
 
-	var names = [];
+    <div class="container">
+      <div class="loader center-align">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
 
-    var prevFrom;
-    var prevTimestamp = "";
-    for (var i = 0; i < arrLines.length; i++) {
-        var curLine = arrLines[i];
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
 
-        split = curLine.split(/( - )|(: )/, 7);
-        if (split.length == 7) {
-            var timestamp = split[0];
-            var from = split[3];
-            var message = split[6];
-            var className = from.replace(/ /g,'');
-            if(names.indexOf(className)== -1){
-                names.push(className);
-                var povDiv = document.getElementById("pov");
-                povDiv.innerHTML += "<button class=\"myButton\" onclick='changeCss(\""+className+"\",this)'>"+from+"</button>";
-            }
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
 
-            if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
-                addAdmin(timestamp.split(', ')[0]);
-            }
-
-            if (timestamp && from && message && message.indexOf(".jpg (file attached)") != -1) {
-                addImage(timestamp, from, message.split(" (file attached)"));
-            } else if (timestamp && from && message && message.indexOf(".mp4 (file attached)") != -1) {
-                addVideo(timestamp, from, message.split(" (file attached)"));
-            } else if (timestamp && from && message) {
-                if (from == prevFrom && timestamp == prevTimestamp) {
-                    addContinuedMsg(message);
-                } else {
-                    addMsg(timestamp, from, message);
-                }
-            }
-
-            prevFrom = from;
-            prevTimestamp = timestamp;
-        } else if (split.length == 4 && split[1] == " - " && !split[2]) {
-            // admin message
-            addAdmin(split[3]);
-        } else {
-            // multi line
-            var timestamp = $('#chat > div > div:last-child() > ul > li > p:last-child() > span').remove();
-            $('#chat > div > div:last-child() > ul > li > p:last-child()').append("<br>" + curLine).append(timestamp);
-        }
-    }
-
-    $('.loader').remove();
-}
-
-var isShowing = false;
-$(".expand").click(function(event) {
-    event.preventDefault();
-	if(isShowing){
-        $('#moreBtn2').hide();
-        $('#moreBtn1').show();
-        $('#pov').hide();
-	}
-	else{
-        $('#moreBtn1').hide();
-		$('#moreBtn2').show();
-        $('#pov').show();
-	}
-	isShowing = !isShowing;
-});
-
-function addImage(timestamp, from, filename) {
-    $(".chat_box").append(`
-        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
-            <ul class="chat_message">
-                <li>
-                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
-                        <b>` + from + `</b>
-                    </p>
-                    <p>
-                        <img src="log/` + filename[0] + `">
-                        <span class="chat_message_time">` + timestamp + `</span>
-                    </p>
-                </li>
-            </ul>
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
         </div>
-        `);
-}
+        <h5 class="white-text">Loading</h5>
+      </div>
 
-function addVideo(timestamp, from, filename) {
-    $(".chat_box").append(`
-        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
-            <ul class="chat_message">
-                <li>
-                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
-                        <b>` + from + `</b>
-                    </p>
-                    <p>
-                        <video controls>
-                            <source src="log/` + filename[0] + `" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <span class="chat_message_time">` + timestamp + `</span>
-                    </p>
-                </li>
-            </ul>
-        </div>
-        `);
-}
+      <div class="row chat-box">  
+      </div>
+    </div>
 
-function addAdmin(message){
-    $(".chat_box").append(`
-        <div class="admin_message_wrapper">
-            ` + message + `
-        </div>
-        `);
-}
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="script.js"></script>
 
-function addMsg(timestamp, from, message) {
-    message = twemoji.parse(message.linkify());
-    $(".chat_box").append(`
-        <div class="chat_message_wrapper ` + from.replace(/ /g, '') + `">
-            <ul class="chat_message">
-                <li>
-                    <p style="color: #` + intToRGB(hashCode(from)) + `;">
-                        <b>` + from + `</b>
-                    </p>
-                    <p>
-                        ` + message + `
-                        <span class="chat_message_time">` + timestamp + `</span>
-                    </p>
-                </li>
-            </ul>
-        </div>
-        `);
-}
-
-function addContinuedMsg(message) {
-    var timestamp = $('#chat > div > div:last-child() > ul > li > p:last-child() > span').remove();
-    $("#chat > div > div:last-child() > ul").append(`
-                <li>
-                    <p>
-                    </p>
-                    <p>
-                        ` + message + `
-                    </p>
-                </li>
-        `);
-    $('#chat > div > div:last-child() > ul > li:last-child() > p:last-child()').append(timestamp);
-}
-
-function hashCode(str) {
-    var hash = 0;
-    for (var i = 0; i < str.length; i++) {
-        hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
-} 
-
-function intToRGB(i){
-    var c = (i & 0x00FFFFFF)
-    .toString(16)
-    .toUpperCase();
-
-    return "00000".substring(0, 6 - c.length) + c;
-}
-
-var prevClassName ="";
-function changeCss(selClassName,btn){
-	var allOld = document.getElementsByClassName("chat_message_wrapper");
-	var buttons = document.getElementsByClassName("myButton");
-	for(i=0;i<buttons.length; i++){
-		buttons[i].classList.remove("active");
-	}
-	for(i=0; i<allOld.length; i++){
-		allOld[i].classList.remove("chat_message_right");
-	}
-	if(selClassName ==prevClassName){
-		prevClassName = "";
-		btn.classList.remove("active");
-	}
-	else{
-		var newPov = document.getElementsByClassName(selClassName);
-		for(i=0; i<newPov.length; i++){
-			newPov[i].className +="chat_message_wrapper "+selClassName+"  chat_message_right";
-		}
-		btn.classList.add("active");
-		prevClassName=selClassName;
-	}
-}
-
-if(!String.linkify) {
-    String.prototype.linkify = function() {
-
-        // http://, https://, ftp://
-        var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
-
-        // www. sans http:// or https://
-        var pseudoUrlPattern = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-
-        // Email addresses
-        var emailAddressPattern = /[\w.]+@[a-zA-Z_-]+?(?:\.[a-zA-Z]{2,6})+/gim;
-
-        return this
-            .replace(urlPattern, '<a href="$&">$&</a>')
-            .replace(pseudoUrlPattern, '$1<a href="http://$2">$2</a>')
-            .replace(emailAddressPattern, '<a href="mailto:$&">$&</a>');
-    };
-}
-</script>
-
-<iframe src="log/chatlog.txt" id="frmFile" onload="LoadFile();" style="display: none;"></iframe>
-
-</body>
+    <iframe src="log/chatlog.txt" id="frmFile" onload="LoadFile();" style="display: none;"></iframe>
+  </body>
 </html>
