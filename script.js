@@ -24,23 +24,31 @@ function LoadFile() {
             var from = split[3];
             var message = split[6];
             var className = from.replace(' ','');
+
+            // update list of participants
             if(names.indexOf(className)== -1){
                 names.push(className);
                 $('.pov').append('<li><a href="#" class="change-pov">' + from + '</a></li>');
             }
 
             if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
+                // new day label
                 addAdmin('', timestamp.split(', ')[0]);
             }
 
             if (timestamp && from && message && message.indexOf(".jpg (file attached)") != -1) {
+                // image
                 addImage(timestamp, from, message.split(" (file attached)"));
             } else if (timestamp && from && message && message.indexOf(".mp4 (file attached)") != -1) {
+                // video
                 addVideo(timestamp, from, message.split(" (file attached)"));
             } else if (timestamp && from && message) {
+                // msg
                 if (from == prevFrom && timestamp == prevTimestamp) {
-                    addContinuedMsg(message);
+                    // joined bubbles
+                    addConsecutiveMsg(message);
                 } else {
+                    // new bubble
                     addMsg(timestamp, from, message);
                 }
             }
@@ -50,10 +58,10 @@ function LoadFile() {
         } else if (split.length == 4 && split[1] == " - " && !split[2] ) {
             // admin message
             addAdmin(split[0], split[3]);
+            prevFrom = "";
         } else {
-            // multi line
+            // append multi line msg to last bubble
             var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
-            //console.log(timestamp);
             $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').append("<br>" + curLine);
             $('.bubble-wrapper:last-child > ul > li:last-child').append(timestamp);
         }
@@ -112,7 +120,7 @@ function addMsg(timestamp, from, message) {
         `);
 }
 
-function addContinuedMsg(message) {
+function addConsecutiveMsg(message) {
     message = twemoji.parse(message.linkify());
     var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
     $(".bubble-wrapper:last-child > ul").append(`
