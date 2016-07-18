@@ -104,3 +104,7 @@ img.emoji {
 .loader {
     margin-top: 10em;
 }
+
+.dropdown-content li>a, .dropdown-content li>span {
+    padding-right: 32px;
+}
