@@ -23,7 +23,7 @@ function LoadFile() {
             var timestamp = split[0];
             var from = split[3];
             var message = split[6];
-            var className = from.replace(' ','');
+            var className = from.replace(/ /g,'');
 
             // update list of participants
             if(names.indexOf(className)== -1){
@@ -61,15 +61,14 @@ function LoadFile() {
             prevFrom = "";
         } else {
             // append multi line msg to last bubble
-            var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
-            $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').append("<br>" + curLine);
-            $('.bubble-wrapper:last-child > ul > li:last-child').append(timestamp);
+            addMultiLineMsg(curLine);
         }
     }
 
     $('.loader').remove();
 
     changePov();
+    loadImg();
 }
 
 var prevClassName = "";
@@ -77,7 +76,7 @@ function changePov() {
     $('.change-pov').click(function(event) {
         event.preventDefault();
         $(".button-collapse").sideNav('hide');
-        var className = event.target.text.replace(' ', '');
+        var className = event.target.text.replace(/ /g, '');
         $('.chat-message').removeClass('sender');
         $('.pov > li').removeClass("active");
         
@@ -91,12 +90,18 @@ function changePov() {
     });
 }
 
+function loadImg() {
+    $(".load-img").click(function(event) {
+        $(event.target).attr("src", $(event.target).data("src"));
+    });
+}
+
 function addAdmin(timestamp, message) {
     message = twemoji.parse(message.linkify());
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper">
             <ul class="admin-message">
-                <li>
+                <li class="z-depth-1">
                     <p class="center-align">` + message + `</p>
                     <p class="time grey-text center-align">` + timestamp + `</p>
                 </li>
@@ -108,9 +113,9 @@ function addAdmin(timestamp, message) {
 function addMsg(timestamp, from, message) {
     message = twemoji.parse(message.linkify());
     $(".chat-box").append(`
-        <div class="col s12 bubble-wrapper ` + from.replace(' ', '') + `">
+        <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
-                <li>
+                <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
                     <p>` + message + `</p>
                     <p class="time grey-text right-align">` + timestamp + `</p>
@@ -124,20 +129,27 @@ function addConsecutiveMsg(message) {
     message = twemoji.parse(message.linkify());
     var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
     $(".bubble-wrapper:last-child > ul").append(`
-                <li>
+                <li class="z-depth-1">
                     <p>` + message + `</p>
                     <p class="time grey-text right-align">` + timestamp.text() + `</p>
                 </li>
         `);
 }
 
+function addMultiLineMsg(message) {
+    var timestamp = $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').remove();
+    $('.bubble-wrapper:last-child > ul > li:last-child > p:last-child').append("<br>" + message);
+    $('.bubble-wrapper:last-child > ul > li:last-child').append(timestamp);
+}
+
 function addImage(timestamp, from, filename) {
     $(".chat-box").append(`
-        <div class="col s12 bubble-wrapper ` + from.replace(' ', '') + `">
+        <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
-                <li>
+                <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img" src="log/` + filename[0] + `"></p>
+                    <p><img class="responsive-img load-img z-depth-1" src="img.png" data-src="log/` + filename[0] + `" title="` + filename[0] + `"></p>
+                    
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
             </ul>
@@ -147,12 +159,12 @@ function addImage(timestamp, from, filename) {
 
 function addVideo(timestamp, from, filename) {
     $(".chat-box").append(`
-        <div class="col s12 bubble-wrapper ` + from.replace(' ', '') + `">
+        <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
-                <li>
+                <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
                     <p>
-                        <video controls>
+                        <video class="responsive-video z-depth-1" controls preload="metadata" title="` + filename[0] + `">
                             <source src="log/` + filename[0] + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
