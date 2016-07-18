@@ -1,5 +1,6 @@
 $( document ).ready(function(){
 	$(".button-collapse").sideNav();
+    $('.modal-trigger').leanModal();
 })
 
 function LoadFile() {
@@ -64,6 +65,8 @@ function LoadFile() {
             addMultiLineMsg(curLine);
         }
     }
+
+    $('.tooltipped').tooltip({delay:'1000'});
 
     $('.loader').remove();
 
@@ -210,3 +213,7 @@ function intToRGB(i) {
 
     return "00000".substring(0, 6 - c.length) + c;
 }
+
+$('#upload a').click(function(event) {
+    alert('TODO: VALIDATION AND PARSE LIST OF SELECTED FILES');
+})

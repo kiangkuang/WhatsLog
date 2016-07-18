@@ -23,11 +23,13 @@
             <a href="#" class="brand-logo grey-text text-darken-2">WhatsLog</a>
             <a href="#" data-activates="mobile-menu" class="button-collapse grey-text text-darken-2"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
+              <li><a class='waves-effect modal-trigger grey-text text-darken-2' href='#upload'><i class="material-icons">file_upload</i></a></li>
               <li><a class='waves-effect dropdown-button grey-text text-darken-2' href='#' data-activates='dropdown-menu' data-beloworigin='true' data-constrainwidth='false' data-alignment='right'><i class="material-icons">question_answer</i></a></li>
             </ul>
           </div>
           <!-- Side Nav Structure -->
           <ul class="side-nav pov" id="mobile-menu">
+            <li><a class="waves-effect modal-trigger" href="#upload"><i class="material-icons left">file_upload</i>Upload Logs</a></li>
             <li class="divider"></li>
             <li><a><i class="material-icons left">question_answer</i>Select Perspective</a></li>
           </ul>
@@ -40,6 +42,26 @@
       <li><span class="grey-text text-darken-2">Select Perspective</span></li>
       <li class="divider"></li>
     </ul>
+
+    <!-- Modal Structure -->
+    <div id="upload" class="modal">
+      <div class="modal-content">
+        <h4>Upload Logs</h4>
+        <p>lol jk we read it directly, not uploaded</p>
+        <form action="#">
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>File</span>
+              <input type="file" multiple>
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Select the log .txt file and all media files">
+            </div>
+          </div>
+        </form>
+        <a href="#!" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">file_upload</i>Upload</a>
+      </div>
+    </div>
 
     <div class="container">
       <div class="loader center-align">
