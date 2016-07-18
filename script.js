@@ -28,7 +28,7 @@ function LoadFile() {
             // update list of participants
             if(names.indexOf(className)== -1){
                 names.push(className);
-                $('.pov').append('<li><a href="#" class="change-pov">' + from + '</a></li>');
+                $('.pov').append('<li><a href="#" class="waves-effect change-pov" data-name="' + className + '"><i class="material-icons left">chevron_right</i>' + from + '</a></li>');
             }
 
             if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
@@ -76,7 +76,7 @@ function changePov() {
     $('.change-pov').click(function(event) {
         event.preventDefault();
         $(".button-collapse").sideNav('hide');
-        var className = event.target.text.replace(/ /g, '');
+        var className = $(event.target).data('name');
         $('.chat-message').removeClass('sender');
         $('.pov > li').removeClass("active");
         
@@ -148,7 +148,7 @@ function addImage(timestamp, from, filename) {
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img load-img z-depth-1" src="img.png" data-src="log/` + filename[0] + `" title="` + filename[0] + `"></p>
+                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="log/` + filename[0] + `" alt="` + filename[0] + `" data-tooltip="` + filename[0] + `"></p>
                     
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
@@ -164,7 +164,7 @@ function addVideo(timestamp, from, filename) {
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
                     <p>
-                        <video class="responsive-video z-depth-1" controls preload="metadata" title="` + filename[0] + `">
+                        <video class="responsive-video z-depth-1 tooltipped" controls preload="metadata" alt="` + filename[0] + `" data-tooltip="` + filename[0] + `">
                             <source src="log/` + filename[0] + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
