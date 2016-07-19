@@ -1,20 +1,97 @@
 $( document ).ready(function(){
-	$(".button-collapse").sideNav();
+    $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
 })
 
-function LoadFile(input) {
-    //var oFrame = document.getElementById("frmFile");
-    //var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
-	
-	var strRawContents = input;
-    if (!strRawContents) {
-        $('.preloader-wrapper').remove();
-        $('.loader > h5').text("Error loading file '" + $('#frmFile').attr('src') + "'");
+function readIframe() {
+   try {
+        var strRawContents = $("#frmFile").contents().find('body').text();  
+        if (strRawContents.length > 0) {
+            ProcessLog(strRawContents);
+        }  else {
+            $('.preloader-wrapper').hide();
+            $('.loader > h5').text('Load your own log!');
+        }
     }
+    catch(e) {
+        $('.preloader-wrapper').hide();
+        $('.loader > h5').text('Error loading file "' + $('#frmFile').attr('src') + '"');
+    }
+}
+
+var mediaList;
+var logFile;
+var readCount;
+
+$('#submit').click(function(event) {
+    // clear
+    $('.chat-box').empty();
+    $('.loader').show();
+    $('.preloader-wrapper').show();
+    $('.loader > h5').text('Loading');
+    mediaList = [];
+    logFile = null;
+    readCount = 0;
+
+    var files = $('#uploader')[0].files;
+    var numTxt = 0;
+    for (var i = 0; i < files.length; i++) {
+        if (files[i].type.match(/text.*/)) {
+            numTxt++;
+        }
+    }
+
+    if (numTxt != 1) {        
+        $('.preloader-wrapper').hide();
+        $('.loader > h5').text('Select exactly one .txt file!');
+        return;
+    }
+
+    for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        if (file.type.match(/text.*/) || file.type.match(/image.*/) || file.type.match(/video.*/)) {
+            readFile(file, files.length);
+        } else {
+            alert("File not supported!");
+        }
+    }
+    //alert("TODO: clear everything on second upload, handle multiple files images and videos");
+})
+
+function readFile(file, expectedReadCount) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        // LoadFile(e.target.result);
+        if (file.type.match(/text.*/)) {
+            logFile = e.target.result;
+        } else if (file.type.match(/image.*/) || file.type.match(/video.*/)) {
+            mediaList[file.name] = e.target.result;
+        }
+        readCount++;
+
+        // all async files read completed
+        if (readCount == expectedReadCount) {
+            ProcessLog(logFile);
+        }
+    }
+
+    if (file.type.match(/text.*/)) {
+        reader.readAsText(file);
+    } else if (file.type.match(/image.*/) || file.type.match(/video.*/)) {
+        reader.readAsDataURL(file);
+    }
+}
+
+function ProcessLog(input) {
+    var strRawContents = input;
+    // $('.preloader-wrapper').show();
+    // $('.loader > h5').text("Processing log file...");
+
     var arrLines = strRawContents.split("\n");
 
-	var names = [];
+    var names = [];
 
     var prevFrom;
     var prevTimestamp = "";
@@ -70,7 +147,7 @@ function LoadFile(input) {
 
     $('.tooltipped').tooltip({delay:'1000'});
 
-    $('.loader').remove();
+    $('.loader').hide();
 
     changePov();
     loadImg();
@@ -215,21 +292,3 @@ function intToRGB(i) {
 
     return "00000".substring(0, 6 - c.length) + c;
 }
-
-$('#upload a').click(function(event) {
-	input = document.getElementById('uploader');
-	var file = input.files[0];
-	var textType = /text.*/;
-	if (file.type.match(textType)) {
-		var reader = new FileReader();
-
-		reader.onload = function(e) {
-			LoadFile(reader.result);
-		}
-
-		reader.readAsText(file);	
-	} else {
-		alert("File not supported!");
-	}
-	alert("TODO: clear everything on second upload, handle multiple files images and videos");
-})
