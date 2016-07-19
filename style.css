@@ -51,6 +51,10 @@ iframe {
     word-break: break-word;
 }
 
+.admin-message {
+    margin: 0;
+}
+
 .admin-message >li {
     background-color: #e2f3fc;
     margin-left: auto;
