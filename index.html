@@ -52,14 +52,14 @@
           <div class="file-field input-field">
             <div class="btn">
               <span>File</span>
-              <input type="file" multiple>
+              <input type="file" id="uploader" multiple>
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text" placeholder="Select the log .txt file and all media files">
             </div>
           </div>
         </form>
-        <a href="#!" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">file_upload</i>Upload</a>
+        <a href="#!" id="submit" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">file_upload</i>Upload</a>
       </div>
     </div>
 
@@ -118,6 +118,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="script.js"></script>
 
-    <iframe src="log/chatlog.txt" id="frmFile" onload="LoadFile();" style="display: none;"></iframe>
+    <iframe id="frmFile" onload="LoadFile('');" style="display: none;"></iframe>
   </body>
 </html>

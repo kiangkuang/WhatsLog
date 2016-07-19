@@ -3,9 +3,11 @@ $( document ).ready(function(){
     $('.modal-trigger').leanModal();
 })
 
-function LoadFile() {
-    var oFrame = document.getElementById("frmFile");
-    var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+function LoadFile(input) {
+    //var oFrame = document.getElementById("frmFile");
+    //var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+	
+	var strRawContents = input;
     if (!strRawContents) {
         $('.preloader-wrapper').remove();
         $('.loader > h5').text("Error loading file '" + $('#frmFile').attr('src') + "'");
@@ -215,5 +217,19 @@ function intToRGB(i) {
 }
 
 $('#upload a').click(function(event) {
-    alert('TODO: VALIDATION AND PARSE LIST OF SELECTED FILES');
+	input = document.getElementById('uploader');
+	var file = input.files[0];
+	var textType = /text.*/;
+	if (file.type.match(textType)) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			LoadFile(reader.result);
+		}
+
+		reader.readAsText(file);	
+	} else {
+		alert("File not supported!");
+	}
+	alert("TODO: clear everything on second upload, handle multiple files images and videos");
 })
