@@ -33,6 +33,7 @@ $('#submit').click(function(event) {
     autoload = false;
     autoloadDir = "";
     $('.chat-box').empty();
+    $('.pov').empty();
     $('.loader').show();
     $('.preloader-wrapper').show();
     $('.loader > h5').text('Loading');
