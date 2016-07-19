@@ -38,6 +38,10 @@ img.emoji {
    vertical-align: -0.1em;
 }
 
+iframe {
+    display: none;
+}
+
 .bubble-wrapper > ul > li {
     display: table;
     padding: 0.5em 1em;
