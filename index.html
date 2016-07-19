@@ -29,7 +29,7 @@
           </div>
           <!-- Side Nav Structure -->
           <ul class="side-nav pov" id="mobile-menu">
-            <li><a class="waves-effect modal-trigger" href="#upload"><i class="material-icons left">file_upload</i>Upload Logs</a></li>
+            <li><a class="waves-effect modal-trigger" href="#upload"><i class="material-icons left">file_upload</i>Load Log</a></li>
             <li class="divider"></li>
             <li><a><i class="material-icons left">question_answer</i>Select Perspective</a></li>
           </ul>
@@ -46,8 +46,8 @@
     <!-- Modal Structure -->
     <div id="upload" class="modal">
       <div class="modal-content">
-        <h4>Upload Logs</h4>
-        <p>lol jk we read it directly, not uploaded</p>
+        <h4>Load Log</h4>
+        <p>Files are processed directly and not uploaded anywhere!</p>
         <form action="#">
           <div class="file-field input-field">
             <div class="btn">
@@ -59,7 +59,8 @@
             </div>
           </div>
         </form>
-        <a href="#!" id="submit" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">file_upload</i>Upload</a>
+        <a href="#" id="submit" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">file_upload</i>Confirm</a>
+        <a href="#" class="btn-large blue modal-action modal-close waves-effect"><i class="material-icons left">close</i>Close</a>
       </div>
     </div>
 
@@ -118,6 +119,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script src="script.js"></script>
 
-    <iframe id="frmFile" onload="LoadFile('');" style="display: none;"></iframe>
+    <iframe id="frmFile" src="log/chatlog.txt" onload="readIframe();" style="display: none;"></iframe>
   </body>
 </html>
