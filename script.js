@@ -3,10 +3,14 @@ $( document ).ready(function(){
     $('.modal-trigger').leanModal();
 })
 
+var autoloadDir = "";
+var autoload = false;
 function readIframe() {
-   try {
-        var strRawContents = $("#frmFile").contents().find('body').text();  
+    try {
+        var strRawContents = $("#frmFile").contents().find('body').text();
         if (strRawContents.length > 0) {
+            autoloadDir = $("#frmFile").attr("src").substring(0, $("#frmFile").attr("src").lastIndexOf("/") + 1);
+            autoload = true;
             ProcessLog(strRawContents);
         }  else {
             $('.preloader-wrapper').hide();
@@ -14,6 +18,7 @@ function readIframe() {
         }
     }
     catch(e) {
+        console.log(e.message);
         $('.preloader-wrapper').hide();
         $('.loader > h5').text('Error loading file "' + $('#frmFile').attr('src') + '"');
     }
@@ -25,6 +30,8 @@ var readCount;
 
 $('#submit').click(function(event) {
     // clear
+    autoload = false;
+    autoloadDir = "";
     $('.chat-box').empty();
     $('.loader').show();
     $('.preloader-wrapper').show();
@@ -225,12 +232,16 @@ function addMultiLineMsg(message) {
 }
 
 function addImage(timestamp, from, filename) {
+    var name = filename[0];
+    if (!autoload) {
+        filename[0] = mediaList[filename[0]];
+    }
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="log/` + filename[0] + `" alt="` + filename[0] + `" data-tooltip="` + filename[0] + `"></p>
+                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
                     
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
@@ -240,14 +251,18 @@ function addImage(timestamp, from, filename) {
 }
 
 function addVideo(timestamp, from, filename) {
+    var name = filename[0];
+    if (!autoload) {
+        filename[0] = mediaList[filename[0]];
+    }
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
                     <p>
-                        <video class="responsive-video z-depth-1 tooltipped" controls preload="metadata" alt="` + filename[0] + `" data-tooltip="` + filename[0] + `">
-                            <source src="log/` + filename[0] + `" type="video/mp4">
+                        <video class="responsive-video z-depth-1 tooltipped" controls preload="metadata" alt="` + name + `" data-tooltip="` + name + `">
+                            <source src="` + autoloadDir + filename[0] + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </p>
