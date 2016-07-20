@@ -114,8 +114,6 @@ function ProcessLog(input) {
     }
 
     loadLog(arrLines, names, prevFrom, prevTimestamp);
-
-    changePov();
     loadMoreLog(arrLines, names, prevFrom, prevTimestamp, startLine, endLine);
 }
 
@@ -171,6 +169,7 @@ function loadLog(arrLines, names, prevFrom, prevTimestamp) {
 
         $('.tooltipped').tooltip({delay:'1000'});
         $('.loader').hide();
+        changePov();
     }
 
     startLine += linesToLoad;
