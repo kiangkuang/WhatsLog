@@ -6,6 +6,9 @@ $( document ).ready(function(){
 function LoadFile(input) {
     //var oFrame = document.getElementById("frmFile");
     //var strRawContents = oFrame.contentWindow.document.body.childNodes[0].innerHTML;
+
+    //clear previous messages
+    clearContent();
 	
 	var strRawContents = input;
     if (!strRawContents) {
@@ -93,6 +96,20 @@ function changePov() {
             prevClassName = "";
         }
     });
+}
+
+function clearContent() {
+    $(".chat-box").remove();
+    $(".main-chat").append(`  
+        <div class="row chat-box">  
+        </div>     
+        `);
+
+    $(".pov").empty();
+    $(".pov").append(`
+        <li><span class="grey-text text-darken-2">Select Perspective</span></li>
+        <li class="divider"></li>
+    `);
 }
 
 function loadImg() {
