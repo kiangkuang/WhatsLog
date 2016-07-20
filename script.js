@@ -180,12 +180,6 @@ function changePov() {
     });
 }
 
-function loadImg() {
-    $(".load-img").click(function(event) {
-        $(event.target).attr("src", $(event.target).data("src"));
-    });
-}
-
 function addAdmin(timestamp, message) {
     message = twemoji.parse(message.linkify());
     $(".chat-box").append(`
@@ -242,7 +236,7 @@ function addImage(timestamp, from, filename) {
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
+                    <p><img class="responsive-img z-depth-1 tooltipped" src="` + autoloadDir + filename[0] + `" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
                     
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
