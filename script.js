@@ -171,6 +171,8 @@ function loadLog(arrLines, names, prevFrom, prevTimestamp) {
             // append multi line msg to last bubble
             addMultiLineMsg(curLine);
         }
+
+        $('.tooltipped').tooltip({delay:'1000'});
     }
 
     startLine += linesToLoad;
