@@ -235,14 +235,18 @@ function addMultiLineMsg(message) {
 function addImage(timestamp, from, filename) {
     var name = filename[0];
     if (!autoload) {
-        filename[0] = mediaList[filename[0]];
+        name = mediaList[name];
+    }
+    if (name == null) {
+        autoloadDir = $("#frmFile").attr("src").substring(0, $("#frmFile").attr("src").lastIndexOf("/") + 1);
+        name = filename[0];
     }
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
+                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="` + autoloadDir + name + `" alt="` + name + `" data-tooltip="` + name + `"></p>
                     
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
@@ -254,7 +258,11 @@ function addImage(timestamp, from, filename) {
 function addVideo(timestamp, from, filename) {
     var name = filename[0];
     if (!autoload) {
-        filename[0] = mediaList[filename[0]];
+        name = mediaList[name];
+    }
+    if (name == null) {
+        autoloadDir = $("#frmFile").attr("src").substring(0, $("#frmFile").attr("src").lastIndexOf("/") + 1);
+        name = filename[0];
     }
     $(".chat-box").append(`
         <div class="col s12 bubble-wrapper ` + from.replace(/ /g, '') + `">
@@ -263,7 +271,7 @@ function addVideo(timestamp, from, filename) {
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
                     <p>
                         <video class="responsive-video z-depth-1 tooltipped" controls preload="metadata" alt="` + name + `" data-tooltip="` + name + `">
-                            <source src="` + autoloadDir + filename[0] + `" type="video/mp4">
+                            <source src="` + autoloadDir + name + `" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </p>
