@@ -92,6 +92,9 @@ function readFile(file, expectedReadCount) {
     }
 }
 
+var startLine;
+var endLine;
+var linesToLoad = 10;
 function ProcessLog(input) {
     var strRawContents = input;
     // $('.preloader-wrapper').show();
@@ -103,7 +106,24 @@ function ProcessLog(input) {
 
     var prevFrom;
     var prevTimestamp = "";
-    for (var i = 0; i < arrLines.length; i++) {
+    
+    startLine = 0;
+    endLine = linesToLoad;
+    if (arrLines.length < linesToLoad) {
+        endLine = arrLines.length;
+    }
+
+    loadLog(arrLines, names, prevFrom, prevTimestamp);
+
+    $('.tooltipped').tooltip({delay:'1000'});
+    $('.loader').hide();
+
+    changePov();
+    loadMoreLog(arrLines, names, prevFrom, prevTimestamp, startLine, endLine);
+}
+
+function loadLog(arrLines, names, prevFrom, prevTimestamp) {
+    for (var i = startLine; i < endLine; i++) {
         var curLine = arrLines[i];
 
         split = curLine.split(/( - )|(: )/, 7);
@@ -153,12 +173,23 @@ function ProcessLog(input) {
         }
     }
 
-    $('.tooltipped').tooltip({delay:'1000'});
+    startLine += linesToLoad;
+    endLine += linesToLoad;
+    if (endLine > arrLines.length) {
+        endLine = arrLines.length;
+    }
+}
 
-    $('.loader').hide();
-
-    changePov();
-    loadImg();
+function loadMoreLog(arrLines, names, prevFrom, prevTimestamp) {
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight > -0.00066 &&
+            (scrollHeight - scrollPosition) / scrollHeight < 0.00066) {
+            // when scroll to bottom of the page
+            loadLog(arrLines, names, prevFrom, prevTimestamp);
+        }
+    });
 }
 
 var prevClassName = "";
