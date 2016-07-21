@@ -97,6 +97,9 @@ function readFile(file, expectedReadCount) {
     }
 }
 
+var startLine;
+var endLine;
+var linesToLoad = 10;
 function ProcessLog(input) {
     var strRawContents = input;
     // $('.preloader-wrapper').show();
@@ -108,7 +111,19 @@ function ProcessLog(input) {
 
     var prevFrom;
     var prevTimestamp = "";
-    for (var i = 0; i < arrLines.length; i++) {
+    
+    startLine = 0;
+    endLine = linesToLoad;
+    if (arrLines.length < linesToLoad) {
+        endLine = arrLines.length;
+    }
+
+    loadLog(arrLines, names, prevFrom, prevTimestamp);
+    loadMoreLog(arrLines, names, prevFrom, prevTimestamp, startLine, endLine);
+}
+
+function loadLog(arrLines, names, prevFrom, prevTimestamp) {
+    for (var i = startLine; i < endLine; i++) {
         var curLine = arrLines[i];
 
         split = curLine.split(/( - )|(: )/, 7);
@@ -165,11 +180,26 @@ function ProcessLog(input) {
     }
 
     $('.tooltipped').tooltip({delay:'1000'});
-
     $('.loader').hide();
-
     changePov();
-    loadImg();
+
+    startLine += linesToLoad;
+    endLine += linesToLoad;
+    if (endLine > arrLines.length) {
+        endLine = arrLines.length;
+    }
+}
+
+function loadMoreLog(arrLines, names, prevFrom, prevTimestamp) {
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight > -0.00066 &&
+            (scrollHeight - scrollPosition) / scrollHeight < 0.00066) {
+            // when scroll to bottom of the page
+            loadLog(arrLines, names, prevFrom, prevTimestamp);
+        }
+    });
 }
 
 var prevClassName = "";
@@ -188,12 +218,6 @@ function changePov() {
         } else {
             prevClassName = "";
         }
-    });
-}
-
-function loadImg() {
-    $(".load-img").click(function(event) {
-        $(event.target).attr("src", $(event.target).data("src"));
     });
 }
 
@@ -253,7 +277,7 @@ function addImage(timestamp, from, filename) {
             <ul class="chat-message">
                 <li class="z-depth-1">
                     <p class="name" style="color: #` + intToRGB(hashCode(from)) + `;">` + from + `</p>
-                    <p><img class="responsive-img load-img z-depth-1 tooltipped" src="img.png" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
+                    <p><img class="responsive-img z-depth-1 tooltipped" src="` + autoloadDir + filename[0] + `" data-src="` + autoloadDir + filename[0] + `" alt="` + name + `" data-tooltip="` + name + `"></p>
                     
                     <p class="time grey-text right-align">` + timestamp + `</p>
                 </li>
