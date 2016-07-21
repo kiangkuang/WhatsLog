@@ -121,7 +121,13 @@ function ProcessLog(input) {
 
             if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
                 // new day label
-                addAdmin('', timestamp.split(', ')[0]);
+                var date = new Date(timestamp.split(', ')[0]);
+				var day = date.getDate();
+				var monthIndex = date.getMonth();
+				var year = date.getYear();
+
+				var dateStamp = day + ' ' + monthNames[monthIndex] + ' \'' + year
+                addAdmin('',dateStamp );
             }
 
             if (timestamp && from && message && message.indexOf(".jpg (file attached)") != -1) {
