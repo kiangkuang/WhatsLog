@@ -99,7 +99,7 @@ function readFile(file, expectedReadCount) {
 
 var startLine;
 var endLine;
-var linesToLoad = 100;
+var linesToLoad = 10;
 function ProcessLog(input) {
     var strRawContents = input;
     // $('.preloader-wrapper').show();
