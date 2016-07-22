@@ -144,7 +144,7 @@ function loadLog(arrLines, names, prevFrom, prevTimestamp) {
                 var date = new Date(timestamp.split(', ')[0]);
 				var day = date.getDate();
 				var monthIndex = date.getMonth();
-				var year = date.getFullYear().toString().substring(2);
+				var year = date.getYear();
 
 				var dateStamp = day + ' ' + monthNames[monthIndex] + ' \'' + year
                 addAdmin('',dateStamp );
