@@ -2,12 +2,14 @@ $( document ).ready(function(){
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
 })
+
 var monthNames = [
   "January", "February", "March",
   "April", "May", "June", "July",
   "August", "September", "October",
   "November", "December"
 ];
+
 var autoloadDir = "";
 var autoload = false;
 function readIframe() {
@@ -142,11 +144,11 @@ function loadLog(arrLines, names, prevFrom, prevTimestamp) {
             if (timestamp.split(', ')[0] != prevTimestamp.split(', ')[0]) {
                 // new day label
                 var date = new Date(timestamp.split(', ')[0]);
-				var day = date.getDate();
-				var monthIndex = date.getMonth();
-				var year = date.getFullYear().toString().substring(2);
+                var day = date.getDate();
+                var monthIndex = date.getMonth();
+                var year = date.getFullYear().toString().substring(2);
 
-				var dateStamp = day + ' ' + monthNames[monthIndex] + ' \'' + year
+                var dateStamp = day + ' ' + monthNames[monthIndex] + ' \'' + year
                 addAdmin('',dateStamp );
             }
 
