@@ -44,6 +44,7 @@ $('#submit').click(function(event) {
     $('.loader').show();
     $('.preloader-wrapper').show();
     $('.loader > h5').text('Loading');
+    $(window).off("scroll");
     mediaList = [];
     logFile = null;
     readCount = 0;
@@ -113,7 +114,7 @@ function ProcessLog(input) {
 
     var prevFrom;
     var prevTimestamp = "";
-    
+
     startLine = 0;
     endLine = linesToLoad;
     if (arrLines.length < linesToLoad) {
