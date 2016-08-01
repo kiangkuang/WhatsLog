@@ -34,11 +34,13 @@ function readIframe() {
 var mediaList;
 var logFile;
 var readCount;
+var prevTimestamp = "";
 
 $('#submit').click(function(event) {
     // clear
     autoload = false;
     autoloadDir = "";
+    prevTimestamp = "";
     $('.chat-box').empty();
     $('.pov').empty();
     $('.loader').show();
@@ -113,7 +115,6 @@ function ProcessLog(input) {
     var names = [];
 
     var prevFrom;
-    var prevTimestamp = "";
 
     startLine = 0;
     endLine = linesToLoad;
@@ -121,11 +122,12 @@ function ProcessLog(input) {
         endLine = arrLines.length;
     }
 
-    loadLog(arrLines, names, prevFrom, prevTimestamp);
-    loadMoreLog(arrLines, names, prevFrom, prevTimestamp, startLine, endLine);
+    loadLog(arrLines, names, prevFrom);
+    loadMoreLog(arrLines, names, prevFrom);
 }
 
-function loadLog(arrLines, names, prevFrom, prevTimestamp) {
+function loadLog(arrLines, names, prevFrom) {
+
     for (var i = startLine; i < endLine; i++) {
         var curLine = arrLines[i];
 
@@ -193,14 +195,14 @@ function loadLog(arrLines, names, prevFrom, prevTimestamp) {
     }
 }
 
-function loadMoreLog(arrLines, names, prevFrom, prevTimestamp) {
+function loadMoreLog(arrLines, names, prevFrom) {
     $(window).on("scroll", function() {
         var scrollHeight = $(document).height();
         var scrollPosition = $(window).height() + $(window).scrollTop();
         if ((scrollHeight - scrollPosition) / scrollHeight > -0.00066 &&
             (scrollHeight - scrollPosition) / scrollHeight < 0.00066) {
             // when scroll to bottom of the page
-            loadLog(arrLines, names, prevFrom, prevTimestamp);
+            loadLog(arrLines, names, prevFrom);
         }
     });
 }
