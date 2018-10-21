@@ -1,10 +1,8 @@
 <template>
   <div class="chat">
     <div class="chat-container">
-      <UserBar :filename="filename"/>
-      <Conversation
-        :messages="messages"
-        :user="user"/>
+      <UserBar/>
+      <Conversation/>
     </div>
   </div>
 </template>
@@ -15,11 +13,6 @@ import Conversation from './Conversation.vue';
 
 export default {
   components: { UserBar, Conversation },
-  props: {
-    user: String,
-    messages: Array,
-    filename: String,
-  },
 };
 </script>
 

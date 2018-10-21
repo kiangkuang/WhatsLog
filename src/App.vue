@@ -1,9 +1,6 @@
 <template>
   <v-app>
-    <Chat
-      :messages="messages"
-      :user="user"
-      :filename="filename"/>
+    <Chat/>
   </v-app>
 </template>
 
@@ -12,30 +9,6 @@ import Chat from './components/Chat.vue';
 
 export default {
   components: { Chat },
-  data: () => ({
-    filename: 'log.txt',
-    user: 'Bob',
-    messages: [
-      {
-        content: 'hi',
-        from: 'Alice',
-        isPreviousSender: false,
-        time: '6:66 PM',
-      },
-      {
-        content: 'is this a test',
-        from: 'Alice',
-        isPreviousSender: true,
-        time: '6:66 PM',
-      },
-      {
-        content: 'new fone who dis',
-        from: 'Bob',
-        isPreviousSender: false,
-        time: '6:66 PM',
-      },
-    ],
-  }),
 };
 </script>
 

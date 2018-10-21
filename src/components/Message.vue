@@ -31,9 +31,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
-    user: String,
     message: Object,
   },
   data: () => ({
@@ -55,6 +56,7 @@ export default {
     shouldShowName() {
       return !this.message.isPreviousSender && this.message.from !== this.user;
     },
+    ...mapState(['user']),
   },
   methods: {
     hashCode(str) {
@@ -87,6 +89,7 @@ export default {
   max-width: 85%;
   word-wrap: break-word;
   z-index: -1;
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
 }
 
 .message:first-child {
@@ -102,7 +105,7 @@ export default {
 }
 
 .message.previous-user {
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .from {
