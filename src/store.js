@@ -25,5 +25,8 @@ export default new Vuex.Store({
       commit('setFileName', logs.fileName);
       commit('setMessages', logs.messages);
     },
+    setUser({ commit }, user) {
+      commit('setUser', user);
+    },
   },
 });

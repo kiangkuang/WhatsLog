@@ -13,18 +13,51 @@
       <span class="status">{{ fileName }}</span>
     </div>
     <div class="actions more">
-      <v-icon dark>more_vert</v-icon>
+      <v-menu
+        bottom
+        left>
+        <v-icon
+          dark
+          slot="activator">
+          more_vert
+        </v-icon>
+
+        <v-list subheader>
+          <v-subheader>Set Perspective</v-subheader>
+          <v-list-tile
+            v-for="(user, i) in users"
+            :key="i"
+            @click="setUser(user)"
+          >
+            <v-list-tile-title>
+              {{ user }}
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   computed: {
+    users() {
+      const users = this.messages
+        .filter(message => message.type !== 'admin')
+        .map(message => message.from);
+      return [...new Set(users)];
+    },
     ...mapState([
       'fileName',
+      'messages',
+    ]),
+  },
+  methods: {
+    ...mapActions([
+      'setUser',
     ]),
   },
 };
@@ -48,7 +81,7 @@ export default {
   clear: both;
 }
 
-.user-bar div {
+.user-bar > div {
   float: left;
   transform: translateY(-50%);
   position: relative;
@@ -61,16 +94,7 @@ export default {
 }
 
 .user-bar .actions.more {
-  margin: 0 12px 0 32px;
-}
-
-.user-bar .actions.attachment {
-  margin: 0 0 0 30px;
-}
-
-.user-bar .actions.attachment i {
-  display: block;
-  transform: rotate(-45deg);
+  margin: -2px 12px 0 32px;
 }
 
 .user-bar .avatar {
