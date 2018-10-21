@@ -238,8 +238,7 @@ export default {
 }
 
 .media {
-  padding-bottom: 18px;
-
+  padding-bottom: 18px !important;
 }
 
 .media .metadata {
