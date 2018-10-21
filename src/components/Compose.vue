@@ -68,10 +68,11 @@ export default {
         return;
       }
 
+      const media = await this.parseMedia(mediaFiles);
+
       this.setLogs({
         fileName: logFiles[0].name,
-        messages: this.parseText(await this.readFile(logFiles[0])),
-        media: await this.parseMedia(mediaFiles),
+        messages: this.parseText(await this.readFile(logFiles[0]), media),
       });
     },
     readFile(file) {
@@ -93,7 +94,7 @@ export default {
         }
       });
     },
-    parseText(log) {
+    parseText(log, media) {
       const regex = /(\d{1,2}\/\d{1,2}\/\d{1,2}), (\d{1,2}:\d{1,2} (AM|PM)) - (.*): (.*)/gm;
 
       let previousFrom;
@@ -107,11 +108,21 @@ export default {
 
         const [, /* date */, time, , from, content] = match;
 
+        let type;
+        if (content.endsWith('.jpg (file attached)') && media[content.slice(0, -16)]) {
+          type = 'image';
+        } else if (content.endsWith('.mp4 (file attached)') && media[content.slice(0, -16)]) {
+          type = 'video';
+        } else {
+          type = 'text';
+        }
+
         result.push({
-          content,
+          content: type === 'text' ? content : media[content.slice(0, -16)],
           from,
           isPreviousSender: from === previousFrom,
           time,
+          type,
         });
 
         previousFrom = from;

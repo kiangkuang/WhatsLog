@@ -39,6 +39,7 @@ export default {
   font-size: 24px;
   position: relative;
   z-index: 1;
+  box-shadow: 0 -10px 10px 10px #000000;
 }
 
 .user-bar:after {
@@ -93,7 +94,6 @@ export default {
   margin: 0 0 0 8px;
   overflow: hidden;
   white-space: nowrap;
-  width: 110px;
 }
 
 .user-bar .status {

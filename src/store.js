@@ -7,7 +7,6 @@ export default new Vuex.Store({
   state: {
     fileName: null,
     messages: [],
-    media: [],
     user: null,
   },
   mutations: {
@@ -17,9 +16,6 @@ export default new Vuex.Store({
     setMessages(state, messages) {
       state.messages = messages;
     },
-    setMedia(state, media) {
-      state.media = media;
-    },
     setUser(state, user) {
       state.user = user;
     },
@@ -28,7 +24,6 @@ export default new Vuex.Store({
     setLogs({ commit }, logs) {
       commit('setFileName', logs.fileName);
       commit('setMessages', logs.messages);
-      commit('setMedia', logs.media);
     },
   },
 });
