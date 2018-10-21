@@ -1,6 +1,9 @@
 <template>
   <v-app>
-    <Chat :messages="messages" :user="user" :filename="filename"></Chat>
+    <Chat
+      :messages="messages"
+      :user="user"
+      :filename="filename"/>
   </v-app>
 </template>
 

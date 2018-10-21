@@ -1,8 +1,10 @@
 <template>
   <div class="chat">
     <div class="chat-container">
-      <UserBar :filename="filename"></UserBar>
-      <Conversation :messages="messages" :user="user"></Conversation>
+      <UserBar :filename="filename"/>
+      <Conversation
+        :messages="messages"
+        :user="user"/>
     </div>
   </div>
 </template>

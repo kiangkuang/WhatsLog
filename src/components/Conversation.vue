@@ -1,9 +1,13 @@
 <template>
   <div class="conversation">
     <div class="conversation-container">
-      <Message v-for="(msg, index) in messages" :key="index" :message="msg" :user="user"></Message>
+      <Message
+        v-for="(msg, index) in messages"
+        :key="index"
+        :message="msg"
+        :user="user"/>
     </div>
-    <Compose></Compose>
+    <Compose/>
   </div>
 </template>
 
