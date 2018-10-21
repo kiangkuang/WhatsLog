@@ -1,7 +1,7 @@
 <template>
   <div class="conversation">
     <div class="conversation-container">
-      <Message v-for="msg in messages" :key="msg.id" :message="msg" :user="user"></Message>
+      <Message v-for="(msg, index) in messages" :key="index" :message="msg" :user="user"></Message>
     </div>
     <Compose></Compose>
   </div>
@@ -16,7 +16,7 @@ export default {
   props: {
     user: String,
     messages: Array,
-  }
+  },
 };
 </script>
 

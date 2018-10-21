@@ -17,7 +17,7 @@ export default {
     user: String,
     messages: Array,
     filename: String,
-  }
+  },
 };
 </script>
 

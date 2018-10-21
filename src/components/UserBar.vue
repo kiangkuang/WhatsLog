@@ -20,7 +20,7 @@
 export default {
   props: {
     filename: String,
-  }
+  },
 };
 </script>
 

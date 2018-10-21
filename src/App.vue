@@ -14,21 +14,18 @@ export default {
     user: 'Bob',
     messages: [
       {
-        id: 1,
         content: 'hi',
         from: 'Alice',
         isPreviousSender: false,
         time: '6:66 PM',
       },
       {
-        id: 2,
         content: 'is this a test',
         from: 'Alice',
         isPreviousSender: true,
         time: '6:66 PM',
       },
       {
-        id: 3,
         content: 'new fone who dis',
         from: 'Bob',
         isPreviousSender: false,
