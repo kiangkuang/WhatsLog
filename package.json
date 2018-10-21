@@ -26,11 +26,12 @@
       "node": true
     },
     "extends": [
-      "plugin:vue/essential",
+      "plugin:vue/strongly-recommended",
       "@vue/airbnb"
     ],
     "rules": {
-      "no-bitwise": 0
+      "no-bitwise": 0,
+      "vue/require-default-prop": "off"
     },
     "parserOptions": {
       "parser": "babel-eslint"

@@ -1,10 +1,21 @@
 <template>
-  <div class="conversation-compose" @click="$refs.file.click()">
-    <input type="file" v-show="false" ref="file" @change="onFilePicked" multiple>
+  <div
+    class="conversation-compose"
+    @click="$refs.file.click()">
+    <input
+      type="file"
+      v-show="false"
+      ref="file"
+      @change="onFilePicked"
+      multiple>
     <div class="emoji">
       <v-icon>tag_faces</v-icon>
     </div>
-    <input class="input-msg" name="input" placeholder="Select log file" readonly>
+    <input
+      class="input-msg"
+      name="input"
+      placeholder="Select log file"
+      readonly>
     <div class="photo">
       <v-icon>attach_file</v-icon>
     </div>

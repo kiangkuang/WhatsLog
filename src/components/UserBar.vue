@@ -4,7 +4,9 @@
       <v-icon dark>arrow_back</v-icon>
     </div>
     <div class="avatar">
-      <img src="https://ui-avatars.com/api/?name=W+L" alt="Avatar">
+      <img
+        src="https://ui-avatars.com/api/?name=W+L"
+        alt="Avatar">
     </div>
     <div class="name">
       <span>WhatsLog</span>
