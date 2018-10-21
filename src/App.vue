@@ -15,21 +15,21 @@ export default {
     messages: [
       {
         id: 1,
-        message: 'hi',
+        content: 'hi',
         from: 'Alice',
         isPreviousSender: false,
         time: '6:66 PM',
       },
       {
         id: 2,
-        message: 'is this a test',
+        content: 'is this a test',
         from: 'Alice',
         isPreviousSender: true,
         time: '6:66 PM',
       },
       {
         id: 3,
-        message: 'new fone who dis',
+        content: 'new fone who dis',
         from: 'Bob',
         isPreviousSender: false,
         time: '6:66 PM',
