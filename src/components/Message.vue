@@ -2,42 +2,47 @@
   <div
     class="message"
     :class="messageClass">
-    <p
-      class="from"
-      :style="nameStyle"
-      v-if="shouldShowName">
-      {{ message.from }}
-    </p>
-    <span v-if="message.type === 'text'">{{ message.content }}</span>
-    <img
-      v-if="message.type === 'image'"
-      :src="message.content">
-    <video
-      v-if="message.type === 'video'"
-      controls>
-      <source
-        :src="message.content"
-        type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <span class="metadata">
-      <span class="time">{{ message.time }}</span>
-      <span
-        class="tick"
-        v-if="message.from === user">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="15"
-          id="msg-dblcheck-ack"
-          x="2063"
-          y="2076">
-          <path
-            :d="svgPath"
-            fill="#4fc3f7"/>
-        </svg>
+    <div v-if="message.type === 'admin'">
+      {{ message.content }}
+    </div>
+    <div v-if="message.type !== 'admin'">
+      <p
+        class="from"
+        :style="nameStyle"
+        v-if="shouldShowName">
+        {{ message.from }}
+      </p>
+      <span v-if="message.type === 'text'">{{ message.content }}</span>
+      <img
+        v-if="message.type === 'image'"
+        :src="message.content">
+      <video
+        v-if="message.type === 'video'"
+        controls>
+        <source
+          :src="message.content"
+          type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <span class="metadata">
+        <span class="time">{{ message.time }}</span>
+        <span
+          class="tick"
+          v-if="message.from === user">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="15"
+            id="msg-dblcheck-ack"
+            x="2063"
+            y="2076">
+            <path
+              :d="svgPath"
+              fill="#4fc3f7"/>
+          </svg>
+        </span>
       </span>
-    </span>
+    </div>
   </div>
 </template>
 
@@ -54,8 +59,9 @@ export default {
   computed: {
     messageClass() {
       return {
-        sent: this.message.from === this.user,
-        received: this.message.from !== this.user,
+        sent: this.message.type !== 'admin' && this.message.from === this.user,
+        received: this.message.type !== 'admin' && this.message.from !== this.user,
+        'admin-container': this.message.type === 'admin',
         'previous-user': this.message.isPreviousSender,
         media: ['image', 'video'].includes(this.message.type),
       };
@@ -90,7 +96,7 @@ export default {
 </script>
 
 <style scoped>
-.message {
+.message.received, .message.sent, .message.admin-container div {
   color: #000;
   clear: both;
   line-height: 18px;
@@ -107,7 +113,7 @@ export default {
   margin-top: 16px;
 }
 
-.message:after {
+.message.received:after, .message.sent:after {
   position: absolute;
   content: "";
   width: 0;
@@ -174,6 +180,23 @@ export default {
 .metadata .tick-animation svg:last-child {
   -webkit-transform: perspective(800px) rotateY(-179.9deg);
           transform: perspective(800px) rotateY(-179.9deg);
+}
+
+.message.admin-container {
+  max-width: 100%;
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  float: left;
+}
+
+.message.admin-container div {
+  margin-left: auto;
+  margin-right: auto;
+  background: rgb(225,242,251);
+  border-radius: 5px;
+  max-width: 100%;
+  display: inline-block;
 }
 
 .message.received {

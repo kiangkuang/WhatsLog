@@ -51,6 +51,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import moment from 'moment';
 
 export default {
   data: () => ({
@@ -98,6 +99,7 @@ export default {
       const regex = /(\d{1,2}\/\d{1,2}\/\d{1,2}), (\d{1,2}:\d{1,2} (AM|PM)) - (.*): (.*)/gm;
 
       let previousFrom;
+      let previousDate;
       const result = [];
       let match;
       match = regex.exec(log);
@@ -106,7 +108,14 @@ export default {
           regex.lastIndex += 1;
         }
 
-        const [, /* date */, time, , from, content] = match;
+        const [, date, time, , from, content] = match;
+
+        if (date !== previousDate) {
+          result.push({
+            content: moment(date).format('D MMMM YYYY'),
+            type: 'admin',
+          });
+        }
 
         let type;
         if (content.endsWith('.jpg (file attached)') && media[content.slice(0, -16)]) {
@@ -125,6 +134,7 @@ export default {
           type,
         });
 
+        previousDate = date;
         previousFrom = from;
         match = regex.exec(log);
       }
