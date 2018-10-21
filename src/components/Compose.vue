@@ -1,6 +1,6 @@
 <template>
   <div class="conversation-compose" @click="$refs.file.click()">
-    <input type="file" v-show="false" ref="file" @change="onFilePicked()" multiple>
+    <input type="file" v-show="false" ref="file" @change="onFilePicked" multiple>
     <div class="emoji">
       <v-icon>tag_faces</v-icon>
     </div>
@@ -19,25 +19,77 @@
 <script>
 export default {
   methods: {
-    onFilePicked(e){
-      const files = e.target.files
-			if(files[0] !== undefined) {
-				this.imageName = files[0].name
-				if(this.imageName.lastIndexOf('.') <= 0) {
-					return
-				}
-				const fr = new FileReader ()
-				fr.readAsDataURL(files[0])
-				fr.addEventListener('load', () => {
-					this.imageUrl = fr.result
-					this.imageFile = files[0] // this is an image file that can be sent to server...
-				})
-			} else {
-				this.imageName = ''
-				this.imageFile = ''
-				this.imageUrl = ''
-			}
-    }
+    async onFilePicked(e) {
+      const files = Array.from(e.target.files);
+      const logFiles = files.filter(file => file.type.match(/text.*/));
+      const mediaFiles = files.filter(file => !file.type.match(/text.*/));
+
+      if (logFiles.length !== 1) {
+        alert('Please select exactly one .txt log file');
+        return;
+      }
+
+      console.log(this.parseLog(await this.readFile(logFiles[0])));
+      console.log(await this.parseMedia(mediaFiles));
+    },
+    readFile(file) {
+      const fileReader = new FileReader();
+
+      return new Promise((resolve, reject) => {
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+        fileReader.onerror = () => {
+          fileReader.abort();
+          reject(new DOMException('Problem parsing input file.'));
+        };
+
+        if (file.type.match(/text.*/)) {
+          fileReader.readAsText(file);
+        } else {
+          fileReader.readAsDataURL(file);
+        }
+      });
+    },
+    parseLog(log) {
+      const regex = /(\d{1,2}\/\d{1,2}\/\d{1,2}), (\d{1,2}:\d{1,2} (AM|PM)) - (.*): (.*)/gm;
+
+      let previousFrom;
+      const result = [];
+      let match;
+      match = regex.exec(log);
+      while (match !== null) {
+        if (match.index === regex.lastIndex) {
+          regex.lastIndex += 1;
+        }
+
+        const [, /* date */, time, , from, content] = match;
+
+        result.push({
+          content,
+          from,
+          isPreviousSender: from === previousFrom,
+          time,
+        });
+
+        previousFrom = from;
+        match = regex.exec(log);
+      }
+      return result;
+    },
+    async parseMedia(mediaFiles) {
+      const mediaPromises = [];
+      mediaFiles.forEach((mediaFile) => {
+        mediaPromises.push(this.readFile(mediaFile));
+      });
+      const mediaResults = await Promise.all(mediaPromises);
+
+      const mediaDictionary = [];
+      for (let i = 0; i < mediaFiles.length; i += 1) {
+        mediaDictionary[mediaFiles[i].name] = mediaResults[i];
+      }
+      return mediaDictionary;
+    },
   },
 };
 </script>

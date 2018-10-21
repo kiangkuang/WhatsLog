@@ -50,8 +50,8 @@ export default {
         .toUpperCase();
 
       return '00000'.substring(0, 6 - c.length) + c;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -92,7 +92,7 @@ export default {
 }
 
 .metadata {
-  display: inline-block;
+  display: block;
   float: right;
   padding: 0 0 0 7px;
   position: relative;
@@ -109,8 +109,7 @@ export default {
   display: inline-block;
   margin-left: 2px;
   position: relative;
-  top: 4px;
-  height: 16px;
+  height: 12px;
   width: 16px;
 }
 
