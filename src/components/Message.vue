@@ -8,7 +8,18 @@
       v-if="shouldShowName">
       {{ message.from }}
     </p>
-    {{ message.content }}
+    <span v-if="message.type === 'text'">{{ message.content }}</span>
+    <img
+      v-if="message.type === 'image'"
+      :src="message.content">
+    <video
+      v-if="message.type === 'video'"
+      controls>
+      <source
+        :src="message.content"
+        type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
     <span class="metadata">
       <span class="time">{{ message.time }}</span>
       <span
@@ -46,6 +57,7 @@ export default {
         sent: this.message.from === this.user,
         received: this.message.from !== this.user,
         'previous-user': this.message.isPreviousSender,
+        media: ['image', 'video'].includes(this.message.type),
       };
     },
     nameStyle() {
@@ -88,7 +100,6 @@ export default {
   margin-top: 8px;
   max-width: 85%;
   word-wrap: break-word;
-  z-index: -1;
   box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
 }
 
@@ -119,7 +130,7 @@ export default {
   float: right;
   padding: 0 0 0 7px;
   position: relative;
-  bottom: -4px;
+  bottom: -6px;
 }
 
 .metadata .time {
@@ -201,5 +212,20 @@ export default {
 
 .message.received.previous-user:after, .message.sent.previous-user:after {
   border: none;
+}
+
+.media {
+  padding-bottom: 18px;
+
+}
+
+.media .metadata {
+  position: absolute;
+  bottom: 2px;
+  right: 8px;
+}
+
+.media img {
+  max-width: 100%;
 }
 </style>

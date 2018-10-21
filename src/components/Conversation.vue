@@ -50,7 +50,6 @@ export default {
 
 .conversation .conversation-container {
   height: calc(100% - 68px);
-  box-shadow: inset 0 10px 10px -10px #000000;
   overflow-x: hidden;
   padding: 2px 16px;
   margin-bottom: 5px;
