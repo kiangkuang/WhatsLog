@@ -4,22 +4,23 @@
       <Message
         v-for="(msg, index) in messages"
         :key="index"
-        :message="msg"
-        :user="user"/>
+        :message="msg"/>
     </div>
     <Compose/>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Message from './Message.vue';
 import Compose from './Compose.vue';
 
 export default {
   components: { Message, Compose },
-  props: {
-    user: String,
-    messages: Array,
+  computed: {
+    ...mapState([
+      'messages',
+    ]),
   },
 };
 </script>
@@ -51,7 +52,7 @@ export default {
   height: calc(100% - 68px);
   box-shadow: inset 0 10px 10px -10px #000000;
   overflow-x: hidden;
-  padding: 0 16px;
+  padding: 2px 16px;
   margin-bottom: 5px;
 }
 

@@ -10,7 +10,7 @@
     </div>
     <div class="name">
       <span>WhatsLog</span>
-      <span class="status">{{ filename }}</span>
+      <span class="status">{{ fileName }}</span>
     </div>
     <div class="actions more">
       <v-icon dark>more_vert</v-icon>
@@ -19,9 +19,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  props: {
-    filename: String,
+  computed: {
+    ...mapState([
+      'fileName',
+    ]),
   },
 };
 </script>

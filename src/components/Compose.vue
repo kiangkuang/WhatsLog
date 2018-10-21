@@ -14,7 +14,7 @@
     <input
       class="input-msg"
       name="input"
-      placeholder="Select log file"
+      placeholder="Select log and media files"
       readonly>
     <div class="photo">
       <v-icon>attach_file</v-icon>
@@ -24,11 +24,38 @@
         <v-icon dark>send</v-icon>
       </div>
     </button>
+
+    <v-dialog
+      v-model="dialog"
+      max-width="290"
+    >
+      <v-card>
+        <v-card-text>
+          Please select exactly <strong>one</strong> .txt log file
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn
+            color="green darken-1"
+            flat="flat"
+            @click="dialog = false"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
+  data: () => ({
+    dialog: false,
+  }),
   methods: {
     async onFilePicked(e) {
       const files = Array.from(e.target.files);
@@ -36,12 +63,16 @@ export default {
       const mediaFiles = files.filter(file => !file.type.match(/text.*/));
 
       if (logFiles.length !== 1) {
-        alert('Please select exactly one .txt log file');
+        e.target.value = null;
+        this.dialog = true;
         return;
       }
 
-      console.log(this.parseLog(await this.readFile(logFiles[0])));
-      console.log(await this.parseMedia(mediaFiles));
+      this.setLogs({
+        fileName: logFiles[0].name,
+        messages: this.parseText(await this.readFile(logFiles[0])),
+        media: await this.parseMedia(mediaFiles),
+      });
     },
     readFile(file) {
       const fileReader = new FileReader();
@@ -62,7 +93,7 @@ export default {
         }
       });
     },
-    parseLog(log) {
+    parseText(log) {
       const regex = /(\d{1,2}\/\d{1,2}\/\d{1,2}), (\d{1,2}:\d{1,2} (AM|PM)) - (.*): (.*)/gm;
 
       let previousFrom;
@@ -95,12 +126,15 @@ export default {
       });
       const mediaResults = await Promise.all(mediaPromises);
 
-      const mediaDictionary = [];
+      const mediaDictionary = {};
       for (let i = 0; i < mediaFiles.length; i += 1) {
         mediaDictionary[mediaFiles[i].name] = mediaResults[i];
       }
       return mediaDictionary;
     },
+    ...mapActions([
+      'setLogs',
+    ]),
   },
 };
 </script>
