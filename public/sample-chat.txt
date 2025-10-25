@@ -1,37 +1,27 @@
-10/15/23, 9:30 AM - Alice: Hey! How are you doing?
-10/15/23, 9:31 AM - Bob: I'm doing great! Just finished a project at work
-10/15/23, 9:31 AM - Bob: How about you?
-10/15/23, 9:35 AM - Alice: That's awesome! Congrats! 🎉
-10/15/23, 9:35 AM - Alice: I'm good too, just relaxing on the weekend
-10/15/23, 9:40 AM - Bob: Nice! Any plans?
-10/15/23, 9:42 AM - Alice: Thinking about going hiking tomorrow
-10/15/23, 9:42 AM - Alice: Want to join?
-10/15/23, 9:45 AM - Bob: <Media omitted>
-10/15/23, 9:45 AM - Bob: That sounds fun! What time?
-10/15/23, 9:50 AM - Alice: Let's meet at 7 AM
-10/15/23, 9:50 AM - Alice: We can catch the sunrise!
-10/15/23, 9:55 AM - Bob: Perfect! See you then 👍
-10/15/23, 10:00 AM - Alice: Great! Don't forget to bring water and snacks
-10/15/23, 10:01 AM - Bob: Will do!
-10/15/23, 10:01 AM - Bob: Should I bring my camera?
-10/15/23, 10:05 AM - Alice: Yes definitely!
-10/15/23, 10:05 AM - Alice: The views are amazing there
-10/15/23, 10:10 AM - Bob: Awesome, can't wait!
-10/16/23, 6:55 AM - Alice: I'm on my way!
-10/16/23, 6:58 AM - Bob: Me too! Almost there
-10/16/23, 7:05 AM - Alice: I'm at the parking lot
-10/16/23, 7:06 AM - Bob: <Media omitted>
-10/16/23, 7:06 AM - Bob: Just parked next to you!
-10/16/23, 7:10 AM - Alice: Let's go! 🏔️
-10/16/23, 9:30 AM - Bob: <Media omitted>
-10/16/23, 9:30 AM - Bob: Look at this view!
-10/16/23, 9:31 AM - Alice: Wow! That's stunning
-10/16/23, 9:31 AM - Alice: <Media omitted>
-10/16/23, 9:35 AM - Bob: This was such a great idea
-10/16/23, 9:35 AM - Bob: Thanks for inviting me!
-10/16/23, 9:40 AM - Alice: Anytime! We should do this more often
-10/16/23, 12:00 PM - Bob: Made it back home
-10/16/23, 12:00 PM - Bob: Tired but happy 😊
-10/16/23, 12:05 PM - Alice: Same here! Great workout
-10/16/23, 12:05 PM - Alice: Talk soon!
-
+10/25/25, 10:00 AM - WhatsLog: Welcome to WhatsLog! 👋
+10/25/25, 10:00 AM - WhatsLog: Your WhatsApp chat viewer with style
+10/25/25, 10:01 AM - You: What can I do with WhatsLog?
+10/25/25, 10:01 AM - WhatsLog: Great question! Let me show you the features:
+10/25/25, 10:01 AM - WhatsLog: 1️⃣ View WhatsApp chats in a beautiful interface
+10/25/25, 10:01 AM - WhatsLog: 2️⃣ Switch between different perspectives (POV)
+10/25/25, 10:01 AM - WhatsLog: 3️⃣ Support for images and videos
+10/25/25, 10:01 AM - WhatsLog: 4️⃣ Clean, organized message grouping
+10/25/25, 10:02 AM - You: How do I load my own chat?
+10/25/25, 10:02 AM - WhatsLog: It's easy! Just follow these steps:
+10/25/25, 10:02 AM - WhatsLog: Step 1: Export your WhatsApp chat (with or without media)
+10/25/25, 10:02 AM - WhatsLog: Step 2: Click the upload button (📤) at the top right
+10/25/25, 10:03 AM - WhatsLog: Step 3: Choose your .txt file (and media files if you exported them)
+10/25/25, 10:03 AM - You: What about the POV feature?
+10/25/25, 10:03 AM - WhatsLog: The POV (Point of View) feature is awesome! 🌟
+10/25/25, 10:03 AM - WhatsLog: Once you load a chat, you can switch perspectives
+10/25/25, 10:03 AM - WhatsLog: Messages from the selected POV appear on the right (green)
+10/25/25, 10:03 AM - WhatsLog: Messages from others appear on the left (white)
+10/25/25, 10:04 AM - WhatsLog: Try it by clicking the person button (👤) at the top right
+10/25/25, 10:04 AM - You: Can I see my own chats with media?
+10/25/25, 10:05 AM - WhatsLog: Absolutely! 📸🎥
+10/25/25, 10:05 AM - WhatsLog: When exporting from WhatsApp, choose "Include Media"
+10/25/25, 10:05 AM - WhatsLog: Then upload both the .txt file and media files together
+10/25/25, 10:05 AM - WhatsLog: WhatsLog will automatically match them to your messages
+10/25/25, 10:06 AM - You: This looks great! Let me try loading my own chat
+10/25/25, 10:06 AM - WhatsLog: Perfect! Click the upload button (📤) to get started
+10/25/25, 10:06 AM - WhatsLog: Happy chatting! 🎉
