@@ -292,7 +292,7 @@ const parseWhatsAppChat = (content: string): Message[] => {
 
 const loadSampleChat = async () => {
   try {
-    const response = await fetch('/sample-chat.txt')
+    const response = await fetch(`${import.meta.env.BASE_URL}sample-chat.txt`)
     const content = await response.text()
     messages.value = parseWhatsAppChat(content)
     currentPov.value = 'You'
