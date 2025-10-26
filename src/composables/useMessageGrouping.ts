@@ -31,7 +31,6 @@ export function useMessageGrouping(messages: Ref<Message[]>) {
       if (isNewGroup) {
         groups.push({
           sender: currentMsg.sender,
-          texts: [currentMsg.text],
           timestamp: currentMsg.timestamp,
           date: currentDate,
           showDateSeparator: showDateSeparator || false,
@@ -41,7 +40,6 @@ export function useMessageGrouping(messages: Ref<Message[]>) {
       else {
         const lastGroup = last(groups)
         if (lastGroup) {
-          lastGroup.texts.push(currentMsg.text)
           lastGroup.timestamp = currentMsg.timestamp
           lastGroup.messages.push(currentMsg)
         }
@@ -53,6 +51,5 @@ export function useMessageGrouping(messages: Ref<Message[]>) {
 
   return {
     groupedMessages,
-    getDateFromTimestamp,
   }
 }

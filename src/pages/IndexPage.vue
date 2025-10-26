@@ -35,7 +35,6 @@
           <q-scroll-area
             class="bg-grey-3"
             :style="{ height: 'calc(100vh - 100px)' }"
-            ref="chatContainer"
           >
             <div class="q-pa-md">
               <EmptyState
@@ -65,7 +64,6 @@
 import { ref, computed, onMounted } from 'vue'
 import { useFileDialog } from '@vueuse/core'
 import { uniq } from 'es-toolkit'
-import type { QScrollArea } from 'quasar'
 import type { Message } from '../types/message'
 import { useFileHandler } from '../composables/useFileHandler'
 import { useMessageGrouping } from '../composables/useMessageGrouping'
@@ -76,7 +74,6 @@ import MessageGroup from '../components/MessageGroup.vue'
 
 const messages = ref<Message[]>([])
 const currentPov = ref<string>('')
-const chatContainer = ref<QScrollArea | null>(null)
 
 const { loadSampleChat, handleFileUpload } = useFileHandler(messages)
 

@@ -9,7 +9,6 @@ export interface Message {
 
 export interface GroupedMessage {
   sender: string
-  texts: string[]
   timestamp: string
   date: string
   showDateSeparator: boolean
