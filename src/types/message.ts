@@ -4,6 +4,7 @@ export interface Message {
   timestamp: string
   mediaUrl?: string
   mediaType?: 'image' | 'video'
+  mediaFilename?: string
   isSystem?: boolean
 }
 

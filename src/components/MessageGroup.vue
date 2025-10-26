@@ -35,6 +35,8 @@
         <div v-if="msg.mediaUrl && msg.mediaType === 'image'">
           <q-img
             :src="msg.mediaUrl"
+            :alt="msg.mediaFilename"
+            :title="msg.mediaFilename"
             style="min-width: 300px; max-width: 400px; border-radius: 8px"
             fit="contain"
           />
@@ -42,6 +44,7 @@
         <div v-else-if="msg.mediaUrl && msg.mediaType === 'video'">
           <video
             :src="msg.mediaUrl"
+            :title="msg.mediaFilename"
             controls
             style="min-width: 300px; max-width: 400px; border-radius: 8px"
           />

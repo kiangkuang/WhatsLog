@@ -83,36 +83,78 @@ export function useFileHandler(messages: Ref<Message[]>) {
 
     const mediaUrls = await Promise.all(mediaFiles.map(readMediaFile))
 
-    const mediaMap = new Map(
-      mediaFiles.map((file, index) => [
-        file.name.toLowerCase(),
-        mediaUrls[index],
-      ] as const).filter(([, value]) => value !== undefined),
-    )
+    const parseMediaFilename = (filename: string) => {
+      const match = filename.match(/(?:IMG|VID)-(\d{8})-WA(\d{4})/)
+      if (match && match[1] && match[2]) {
+        return {
+          date: match[1],
+          sequence: Number.parseInt(match[2], 10),
+        }
+      }
+      return null
+    }
+
+    const parseMessageDate = (timestamp: string): string | null => {
+      const match = timestamp.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/)
+      if (match && match[1] && match[2] && match[3]) {
+        const month = match[1].padStart(2, '0')
+        const day = match[2].padStart(2, '0')
+        let year = match[3]
+        if (year.length === 2) {
+          year = `20${year}`
+        }
+        return `${year}${month}${day}`
+      }
+      return null
+    }
+
+    const mediaByDate = new Map<string, Array<{ url: string, type: 'image' | 'video', filename: string, sequence: number }>>()
+    mediaFiles.forEach((file, index) => {
+      const parsed = parseMediaFilename(file.name)
+      const mediaUrl = mediaUrls[index]
+      if (parsed && mediaUrl) {
+        if (!mediaByDate.has(parsed.date)) {
+          mediaByDate.set(parsed.date, [])
+        }
+        const items = mediaByDate.get(parsed.date)
+        if (items) {
+          items.push({
+            ...mediaUrl,
+            filename: file.name,
+            sequence: parsed.sequence,
+          })
+        }
+      }
+    })
+
+    mediaByDate.forEach((items) => {
+      items.sort((a, b) => a.sequence - b.sequence)
+    })
 
     const reader = new FileReader()
     reader.onload = (e) => {
       const content = e.target?.result as string
       const parsedMessages = parseWhatsAppChat(content)
 
-      let mediaIndex = 0
-      for (const msg of parsedMessages) {
-        const fileAttachedMatch = msg.text.match(/^(.+?)\s*\(file attached\)$/i)
+      const mediaIndexByDate = new Map<string, number>()
 
-        if (fileAttachedMatch && fileAttachedMatch[1]) {
-          const fileName = fileAttachedMatch[1].trim().toLowerCase()
-          const mediaItem = mediaMap.get(fileName)
-          if (mediaItem) {
-            msg.mediaUrl = mediaItem.url
-            msg.mediaType = mediaItem.type
-          }
-        }
-        else if (msg.text === '<Media omitted>') {
-          const mediaItem = mediaUrls[mediaIndex]
-          if (mediaItem) {
-            msg.mediaUrl = mediaItem.url
-            msg.mediaType = mediaItem.type
-            mediaIndex++
+      for (const msg of parsedMessages) {
+        if (msg.text === '<Media omitted>' && msg.timestamp) {
+          const msgDate = parseMessageDate(msg.timestamp)
+
+          if (msgDate) {
+            const currentIndex = mediaIndexByDate.get(msgDate) || 0
+            const mediaItems = mediaByDate.get(msgDate)
+
+            if (mediaItems && currentIndex < mediaItems.length) {
+              const mediaItem = mediaItems[currentIndex]
+              if (mediaItem) {
+                msg.mediaUrl = mediaItem.url
+                msg.mediaType = mediaItem.type
+                msg.mediaFilename = mediaItem.filename
+                mediaIndexByDate.set(msgDate, currentIndex + 1)
+              }
+            }
           }
         }
       }
