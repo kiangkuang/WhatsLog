@@ -1,0 +1,27 @@
+10/25/25, 10:00 AM - WhatsLog: Welcome to WhatsLog! 👋
+10/25/25, 10:00 AM - WhatsLog: Your WhatsApp chat viewer with style
+10/25/25, 10:01 AM - You: What can I do with WhatsLog?
+10/25/25, 10:01 AM - WhatsLog: Great question! Let me show you the features:
+10/25/25, 10:01 AM - WhatsLog: 1️⃣ View WhatsApp chats in a beautiful interface
+10/25/25, 10:01 AM - WhatsLog: 2️⃣ Switch between different perspectives (POV)
+10/25/25, 10:01 AM - WhatsLog: 3️⃣ Support for images and videos
+10/25/25, 10:01 AM - WhatsLog: 4️⃣ Clean, organized message grouping
+10/25/25, 10:02 AM - You: How do I load my own chat?
+10/25/25, 10:02 AM - WhatsLog: It's easy! Just follow these steps:
+10/25/25, 10:02 AM - WhatsLog: Step 1: Export your WhatsApp chat (with or without media)
+10/25/25, 10:02 AM - WhatsLog: Step 2: Click the upload button (📤) at the top right
+10/25/25, 10:03 AM - WhatsLog: Step 3: Choose your .txt file (and media files if you exported them)
+10/25/25, 10:03 AM - You: What about the POV feature?
+10/25/25, 10:03 AM - WhatsLog: The POV (Point of View) feature is awesome! 🌟
+10/25/25, 10:03 AM - WhatsLog: Once you load a chat, you can switch perspectives
+10/25/25, 10:03 AM - WhatsLog: Messages from the selected POV appear on the right (green)
+10/25/25, 10:03 AM - WhatsLog: Messages from others appear on the left (white)
+10/25/25, 10:04 AM - WhatsLog: Try it by clicking the person button (👤) at the top right
+10/25/25, 10:04 AM - You: Can I see my own chats with media?
+10/25/25, 10:05 AM - WhatsLog: Absolutely! 📸🎥
+10/25/25, 10:05 AM - WhatsLog: When exporting from WhatsApp, choose "Include Media"
+10/25/25, 10:05 AM - WhatsLog: Then upload both the .txt file and media files together
+10/25/25, 10:05 AM - WhatsLog: WhatsLog will automatically match them to your messages
+10/25/25, 10:06 AM - You: This looks great! Let me try loading my own chat
+10/25/25, 10:06 AM - WhatsLog: Perfect! Click the upload button (📤) to get started
+10/25/25, 10:06 AM - WhatsLog: Happy chatting! 🎉
