@@ -24,7 +24,7 @@
                   dense
                   icon="upload_file"
                   color="white"
-                  @click="triggerFileInput"
+                  @click="openFileDialog()"
                 />
               </div>
             </div>
@@ -41,7 +41,7 @@
               <EmptyState
                 v-if="messages.length === 0"
                 @load-sample="handleLoadSample"
-                @load-file="triggerFileInput"
+                @load-file="openFileDialog"
               />
 
               <div v-else>
@@ -56,15 +56,6 @@
             </div>
           </q-scroll-area>
         </q-card>
-
-        <input
-          ref="fileInput"
-          type="file"
-          accept=".txt,image/*,video/*"
-          multiple
-          class="hidden"
-          @change="onFileChange"
-        />
       </div>
     </div>
   </q-page>
@@ -72,6 +63,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useFileDialog } from '@vueuse/core'
+import { uniq } from 'es-toolkit'
 import type { QScrollArea } from 'quasar'
 import type { Message } from '../types/message'
 import { useFileHandler } from '../composables/useFileHandler'
@@ -83,12 +76,17 @@ import MessageGroup from '../components/MessageGroup.vue'
 
 const messages = ref<Message[]>([])
 const currentPov = ref<string>('')
-const fileInput = ref<HTMLInputElement | null>(null)
 const chatContainer = ref<QScrollArea | null>(null)
 
+const { loadSampleChat, handleFileUpload } = useFileHandler(messages)
+
+const { open: openFileDialog, onChange } = useFileDialog({
+  accept: '.txt,image/*,video/*',
+  multiple: true,
+})
+
 const participants = computed(() => {
-  const uniqueSenders = new Set(messages.value.map(msg => msg.sender))
-  return Array.from(uniqueSenders).sort()
+  return uniq(messages.value.map(msg => msg.sender)).sort()
 })
 
 const chatTitle = computed(() => {
@@ -98,11 +96,6 @@ const chatTitle = computed(() => {
 
 const { groupedMessages } = useMessageGrouping(messages)
 const { getSenderColor } = useSenderColors(participants)
-const { loadSampleChat, handleFileUpload } = useFileHandler(messages)
-
-const triggerFileInput = () => {
-  fileInput.value?.click()
-}
 
 const handleLoadSample = async () => {
   const success = await loadSampleChat()
@@ -111,13 +104,9 @@ const handleLoadSample = async () => {
   }
 }
 
-const onFileChange = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  void handleFileUpload(target.files)
-  if (fileInput.value) {
-    fileInput.value.value = ''
-  }
-}
+onChange((fileList) => {
+  void handleFileUpload(fileList)
+})
 
 onMounted(() => {
   void handleLoadSample()

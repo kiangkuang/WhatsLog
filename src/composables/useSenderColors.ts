@@ -3,20 +3,19 @@ import type { Ref } from 'vue'
 
 export function useSenderColors(participants: Ref<string[]>) {
   const senderColorMap = computed(() => {
-    const map = new Map<string, string>()
     const participantList = participants.value
     const count = participantList.length
 
-    if (count === 0) return map
+    if (count === 0) return new Map<string, string>()
 
     const hueStep = 360 / count
 
-    participantList.forEach((participant, index) => {
+    const colorPairs = participantList.map((participant, index) => {
       const hue = Math.round(index * hueStep)
-      map.set(participant, `hsl(${hue}, 70%, 45%)`)
+      return [participant, `hsl(${hue}, 70%, 45%)`] as const
     })
 
-    return map
+    return new Map(colorPairs)
   })
 
   const getSenderColor = (sender: string): string => {

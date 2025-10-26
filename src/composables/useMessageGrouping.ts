@@ -1,5 +1,6 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
+import { last } from 'es-toolkit'
 import type { Message, GroupedMessage } from '../types/message'
 
 export function useMessageGrouping(messages: Ref<Message[]>) {
@@ -12,13 +13,8 @@ export function useMessageGrouping(messages: Ref<Message[]>) {
   }
 
   const groupedMessages = computed(() => {
-    const groups: GroupedMessage[] = []
-
-    for (let i = 0; i < messages.value.length; i++) {
-      const currentMsg = messages.value[i]
+    return messages.value.reduce<GroupedMessage[]>((groups, currentMsg, i) => {
       const previousMsg = messages.value[i - 1]
-
-      if (!currentMsg) continue
 
       const currentDate = getDateFromTimestamp(currentMsg.timestamp)
       const showDateSeparator = i === 0 || (previousMsg && currentDate !== getDateFromTimestamp(previousMsg.timestamp))
@@ -43,16 +39,16 @@ export function useMessageGrouping(messages: Ref<Message[]>) {
         })
       }
       else {
-        const lastGroup = groups[groups.length - 1]
+        const lastGroup = last(groups)
         if (lastGroup) {
           lastGroup.texts.push(currentMsg.text)
           lastGroup.timestamp = currentMsg.timestamp
           lastGroup.messages.push(currentMsg)
         }
       }
-    }
 
-    return groups
+      return groups
+    }, [])
   })
 
   return {

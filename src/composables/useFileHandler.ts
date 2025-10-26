@@ -1,5 +1,8 @@
 import type { Ref } from 'vue'
+import { watch } from 'vue'
 import { useQuasar } from 'quasar'
+import { useBase64 } from '@vueuse/core'
+import { sortBy } from 'es-toolkit'
 import type { Message } from '../types/message'
 import { useChatParser } from './useChatParser'
 
@@ -7,33 +10,36 @@ export function useFileHandler(messages: Ref<Message[]>) {
   const $q = useQuasar()
   const { parseWhatsAppChat } = useChatParser()
 
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg']
+  const videoExtensions = ['.mp4', '.mov', '.avi', '.mkv', '.webm', '.m4v', '.3gp']
+
   const isImageFile = (file: File): boolean => {
-    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp', '.svg']
     const fileName = file.name.toLowerCase()
     return file.type.startsWith('image/') || imageExtensions.some(ext => fileName.endsWith(ext))
   }
 
   const isVideoFile = (file: File): boolean => {
-    const videoExtensions = ['.mp4', '.mov', '.avi', '.mkv', '.webm', '.m4v', '.3gp']
     const fileName = file.name.toLowerCase()
     return file.type.startsWith('video/') || videoExtensions.some(ext => fileName.endsWith(ext))
   }
 
-  const readMediaFile = (file: File): Promise<{ url: string, type: 'image' | 'video' }> => {
+  const readMediaFile = async (file: File): Promise<{ url: string, type: 'image' | 'video' }> => {
+    const { base64 } = useBase64(file)
+    const type = isImageFile(file) ? 'image' : 'video'
     return new Promise((resolve) => {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const url = e.target?.result as string
-        const type = isImageFile(file) ? 'image' : 'video'
-        resolve({ url, type })
-      }
-      reader.readAsDataURL(file)
+      watch(base64, (value) => {
+        if (value) {
+          resolve({ url: value, type })
+        }
+      }, { immediate: true })
     })
   }
 
   const loadSampleChat = async () => {
     try {
       const response = await fetch(`${import.meta.env.BASE_URL}sample-chat.txt`)
+      if (!response.ok) throw new Error('Failed to fetch')
+
       const content = await response.text()
       messages.value = parseWhatsAppChat(content)
 
@@ -70,18 +76,19 @@ export function useFileHandler(messages: Ref<Message[]>) {
       return
     }
 
-    const mediaFiles = fileArray
-      .filter(f => !f.name.endsWith('.txt') && (isImageFile(f) || isVideoFile(f)))
-      .sort((a, b) => a.name.localeCompare(b.name))
+    const mediaFiles = sortBy(
+      fileArray.filter(f => !f.name.endsWith('.txt') && (isImageFile(f) || isVideoFile(f))),
+      [(f: File) => f.name],
+    )
 
     const mediaUrls = await Promise.all(mediaFiles.map(readMediaFile))
 
-    const mediaMap = new Map<string, { url: string, type: 'image' | 'video' }>()
-    mediaFiles.forEach((file, index) => {
-      if (mediaUrls[index]) {
-        mediaMap.set(file.name.toLowerCase(), mediaUrls[index])
-      }
-    })
+    const mediaMap = new Map(
+      mediaFiles.map((file, index) => [
+        file.name.toLowerCase(),
+        mediaUrls[index],
+      ] as const).filter(([, value]) => value !== undefined),
+    )
 
     const reader = new FileReader()
     reader.onload = (e) => {
