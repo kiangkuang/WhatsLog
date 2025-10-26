@@ -2,8 +2,8 @@
   <q-page class="q-pa-md">
     <div class="row justify-center">
       <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-        <q-card class="chat-container">
-          <q-card-section class="bg-teal text-white q-pa-sm">
+        <q-card class="chat-container" style="display: flex; flex-direction: column; height: calc(100vh - 32px)">
+          <q-card-section class="bg-teal text-white q-pa-sm" style="flex-shrink: 0">
             <div class="row items-center justify-between">
               <div class="col">
                 <div class="text-h6">{{ chatTitle }}</div>
@@ -30,11 +30,9 @@
             </div>
           </q-card-section>
 
-          <q-separator />
-
           <q-scroll-area
             class="bg-grey-3"
-            :style="{ height: 'calc(100vh - 100px)' }"
+            style="flex: 1; min-height: 0"
           >
             <div class="q-pa-md">
               <EmptyState
