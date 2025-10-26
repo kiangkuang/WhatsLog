@@ -83,11 +83,24 @@ const { open: openFileDialog, onChange } = useFileDialog({
 })
 
 const participants = computed(() => {
-  return uniq(messages.value.map(msg => msg.sender)).sort()
+  return uniq(messages.value.map(msg => msg.sender))
+    .filter(sender => sender !== 'System')
+    .sort()
 })
 
 const chatTitle = computed(() => {
   if (messages.value.length === 0) return 'WhatsLog Viewer'
+
+  const systemMessages = messages.value.filter(msg => msg.isSystem)
+
+  for (let i = systemMessages.length - 1; i >= 0; i--) {
+    const msg = systemMessages[i]
+    if (!msg) continue
+
+    const match = msg.text.match(/(?:created group|to)\s+["“”]([^"“”]+)["“”]/)
+    if (match?.[1]) return match[1]
+  }
+
   return participants.value.length > 0 ? 'Chat' : 'WhatsLog Viewer'
 })
 
