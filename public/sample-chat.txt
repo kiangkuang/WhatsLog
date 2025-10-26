@@ -18,6 +18,7 @@
 10/25/25, 10:03 AM - WhatsLog: Messages from others appear on the left (white)
 10/25/25, 10:04 AM - WhatsLog: Try it by clicking the person button (👤) at the top right
 10/25/25, 10:04 AM - You: Can I see my own chats with media?
+10/25/25, 10:04 AM - WhatsLog: <Media omitted>
 10/25/25, 10:05 AM - WhatsLog: Absolutely! 📸🎥
 10/25/25, 10:05 AM - WhatsLog: When exporting from WhatsApp, choose "Include Media"
 10/25/25, 10:05 AM - WhatsLog: Then upload both the .txt file and media files together

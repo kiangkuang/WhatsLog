@@ -41,7 +41,26 @@ export function useFileHandler(messages: Ref<Message[]>) {
       if (!response.ok) throw new Error('Failed to fetch')
 
       const content = await response.text()
-      messages.value = parseWhatsAppChat(content)
+      const parsedMessages = parseWhatsAppChat(content)
+
+      const imageResponse = await fetch(`${import.meta.env.BASE_URL}sample-image.svg`)
+      if (imageResponse.ok) {
+        const blob = await imageResponse.blob()
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const imageUrl = e.target?.result as string
+          const mediaMessage = parsedMessages.find(msg => msg.text === '<Media omitted>')
+          if (mediaMessage) {
+            mediaMessage.mediaUrl = imageUrl
+            mediaMessage.mediaType = 'image'
+          }
+          messages.value = parsedMessages
+        }
+        reader.readAsDataURL(blob)
+      }
+      else {
+        messages.value = parsedMessages
+      }
 
       $q.notify({
         type: 'positive',
